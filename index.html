@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Somni — Your dreams, interpreted.</title>
+<meta name="description" content="Somni is a voice-first AI dream journal. Record, interpret, and find patterns in your dreams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --ink:#0D0B1A;
+  --ink2:#3D3560;
+  --mist:#F4F2FF;
+  --violet:#6B3FA0;
+  --violet-light:#9B6FD0;
+  --gold:#C9A84C;
+  --white:#FFFFFF;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--ink);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* ── STARS ── */
+.stars{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;
+}
+.star{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,0.6);
+  animation:twinkle var(--d,3s) ease-in-out infinite alternate;
+}
+@keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}100%{opacity:0.8;transform:scale(1.1)}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2.5rem;
+  background:rgba(13,11,26,0.7);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  z-index:100;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:600;
+  letter-spacing:0.12em;
+  color:var(--white);
+  text-decoration:none;
+}
+.nav-logo span{color:var(--gold);}
+.nav-link{
+  font-size:0.85rem;font-weight:400;
+  color:rgba(255,255,255,0.55);
+  text-decoration:none;
+  letter-spacing:0.05em;
+  transition:color 0.2s;
+}
+.nav-link:hover{color:var(--white);}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:7rem 2rem 4rem;
+  z-index:1;
+}
+
+.moon{
+  font-size:5rem;
+  display:block;
+  margin-bottom:2rem;
+  animation:float 6s ease-in-out infinite;
+  filter:drop-shadow(0 0 40px rgba(201,168,76,0.4));
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+
+.hero-eyebrow{
+  font-size:0.75rem;
+  font-weight:500;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1.25rem;
+}
+
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,7vw,5.5rem);
+  font-weight:400;
+  line-height:1.08;
+  letter-spacing:-0.01em;
+  color:var(--white);
+  max-width:700px;
+  margin:0 auto 1.5rem;
+}
+h1 em{
+  font-style:italic;
+  color:var(--violet-light);
+}
+
+.hero-sub{
+  font-size:1.05rem;
+  font-weight:300;
+  color:rgba(255,255,255,0.55);
+  max-width:420px;
+  margin:0 auto 3rem;
+  line-height:1.75;
+}
+
+/* ── STORE BUTTONS ── */
+.store-row{
+  display:flex;flex-wrap:wrap;
+  gap:1rem;justify-content:center;
+  margin-bottom:1rem;
+}
+.store-btn{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  padding:0.75rem 1.5rem;
+  border-radius:50px;
+  font-size:0.85rem;
+  font-weight:500;
+  letter-spacing:0.02em;
+  text-decoration:none;
+  transition:all 0.25s;
+  border:1px solid rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.07);
+  color:var(--white);
+  backdrop-filter:blur(8px);
+}
+.store-btn:hover{
+  background:rgba(255,255,255,0.14);
+  border-color:rgba(255,255,255,0.35);
+  transform:translateY(-2px);
+}
+.store-btn svg{width:20px;height:20px;flex-shrink:0;}
+.store-btn .btn-label{display:flex;flex-direction:column;text-align:left;}
+.store-btn .btn-top{font-size:0.65rem;font-weight:300;opacity:0.7;letter-spacing:0.05em;}
+.store-btn .btn-name{font-size:0.9rem;font-weight:500;}
+
+/* ── DIVIDER ── */
+.divider{
+  display:flex;align-items:center;gap:1rem;
+  max-width:600px;margin:5rem auto;
+  padding:0 2rem;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;
+  height:1px;background:rgba(255,255,255,0.08);
+}
+.divider-icon{color:var(--gold);font-size:1rem;opacity:0.6;}
+
+/* ── FEATURES ── */
+.features{
+  position:relative;z-index:1;
+  max-width:900px;margin:0 auto;
+  padding:0 2rem 6rem;
+}
+
+.features-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:400;
+  text-align:center;
+  margin-bottom:3.5rem;
+  color:rgba(255,255,255,0.9);
+}
+.features-title em{font-style:italic;color:var(--violet-light);}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.25rem;
+}
+
+.feature-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:2rem;
+  transition:all 0.3s;
+}
+.feature-card:hover{
+  background:rgba(107,63,160,0.15);
+  border-color:rgba(155,111,208,0.3);
+  transform:translateY(-3px);
+}
+.feature-icon{font-size:1.75rem;margin-bottom:1rem;display:block;}
+.feature-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;font-weight:600;
+  margin-bottom:0.5rem;
+  color:var(--white);
+}
+.feature-desc{
+  font-size:0.875rem;font-weight:300;
+  color:rgba(255,255,255,0.5);
+  line-height:1.7;
+}
+
+/* ── QUOTE ── */
+.quote-section{
+  position:relative;z-index:1;
+  text-align:center;
+  padding:4rem 2rem 6rem;
+  max-width:600px;margin:0 auto;
+}
+blockquote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,3vw,2.25rem);
+  font-style:italic;
+  font-weight:400;
+  color:rgba(255,255,255,0.75);
+  line-height:1.5;
+  position:relative;
+}
+blockquote::before{
+  content:'"';
+  font-size:5rem;line-height:0;
+  position:absolute;top:1.5rem;left:-1rem;
+  color:var(--gold);opacity:0.25;
+}
+
+/* ── CTA ── */
+.cta-section{
+  position:relative;z-index:1;
+  text-align:center;
+  padding:0 2rem 8rem;
+}
+.cta-inner{
+  max-width:520px;margin:0 auto;
+  background:rgba(107,63,160,0.12);
+  border:1px solid rgba(155,111,208,0.2);
+  border-radius:24px;
+  padding:3rem 2rem;
+}
+.cta-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:400;
+  margin-bottom:0.75rem;
+}
+.cta-sub{
+  font-size:0.875rem;font-weight:300;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:2rem;
+  line-height:1.7;
+}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  text-align:center;
+  padding:2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  font-size:0.8rem;
+  color:rgba(255,255,255,0.25);
+}
+footer a{color:rgba(255,255,255,0.4);text-decoration:none;}
+footer a:hover{color:rgba(255,255,255,0.7);}
+.footer-links{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap;}
+
+/* ── ANIMATIONS ── */
+.fade-up{
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:600px){
+  nav{padding:1rem 1.25rem;}
+  .store-btn{padding:0.65rem 1.1rem;}
+}
+</style>
+</head>
+<body>
+
+<canvas class="stars" id="stars"></canvas>
+
+<nav>
+  <a class="nav-logo" href="/"><span>🌙</span> SOMNI</a>
+  <a class="nav-link" href="https://empirek76.github.io/somni-legal/privacy-policy/">Privacy</a>
+</nav>
+
+<section class="hero">
+  <span class="moon">🌙</span>
+  <p class="hero-eyebrow">AI Dream Journal</p>
+  <h1>Your dreams, <em>interpreted.</em></h1>
+  <p class="hero-sub">Wake up and speak. Somni transcribes, interprets, and finds patterns across everything your sleeping mind has ever said.</p>
+
+  <div class="store-row">
+    <a href="#" class="store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <span class="btn-label"><span class="btn-top">Download on the</span><span class="btn-name">App Store</span></span>
+    </a>
+    <a href="#" class="store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>
+      <span class="btn-label"><span class="btn-top">Get it on</span><span class="btn-name">Google Play</span></span>
+    </a>
+    <a href="#" class="store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.734 1.767-2.962 2.297-5.209 2.297-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.582l-3.065-.33c-.259-.056-.548-.266-.472-.66C5.977 2.412 8.807 1.5 11.35 1.5c1.3 0 2.998.346 4.025 1.329 1.3 1.214 1.175 2.832 1.175 4.595v4.165c0 1.252.519 1.8 1.007 2.476.173.24.21.527-.007.706l-2.406 2.024zm3.617 2.935C18.4 22.602 15.552 24 12.42 24 8.04 24 4.98 21.918 3 18.615l2.04-1.32C6.514 19.877 9.205 21.5 12.42 21.5c2.574 0 5.052-1.053 6.886-2.864l1.455 2.094z"/></svg>
+      <span class="btn-label"><span class="btn-top">Available at</span><span class="btn-name">Amazon Appstore</span></span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-icon">✦</span></div>
+
+<section class="features">
+  <h2 class="features-title fade-up">Everything your <em>dreams</em> deserve</h2>
+  <div class="feature-grid">
+    <div class="feature-card fade-up">
+      <span class="feature-icon">🎙️</span>
+      <p class="feature-title">Voice-first recording</p>
+      <p class="feature-desc">Speak in fragments the moment you wake. Somni stitches them together before they fade.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <span class="feature-icon">✨</span>
+      <p class="feature-title">AI interpretation</p>
+      <p class="feature-desc">Claude AI delivers warm, personal interpretations — not generic horoscopes.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <span class="feature-icon">🔮</span>
+      <p class="feature-title">Pattern analysis</p>
+      <p class="feature-desc">Recurring symbols, emotional arcs, shifting tones — discovered across all your dreams.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <span class="feature-icon">🔥</span>
+      <p class="feature-title">Streak & realms</p>
+      <p class="feature-desc">Progress from Drifter to Archetype across 7 realms as you build your dream practice.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <span class="feature-icon">📅</span>
+      <p class="feature-title">Dream calendar</p>
+      <p class="feature-desc">See your entire dreaming year at a glance. Every night, every mood, mapped.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <span class="feature-icon">📄</span>
+      <p class="feature-title">Journal export</p>
+      <p class="feature-desc">Export your dreams as a beautiful PDF — a personal archive of your inner world.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section fade-up">
+  <blockquote>Your dreams have always been speaking. Somni helps you finally listen.</blockquote>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner fade-up">
+    <h2 class="cta-title">Start tonight</h2>
+    <p class="cta-sub">Free to download. Your first dreams, interpreted on us.</p>
+    <div class="store-row">
+      <a href="#" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span class="btn-label"><span class="btn-top">Download on the</span><span class="btn-name">App Store</span></span>
+      </a>
+      <a href="#" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>
+        <span class="btn-label"><span class="btn-top">Get it on</span><span class="btn-name">Google Play</span></span>
+      </a>
+      <a href="#" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.734 1.767-2.962 2.297-5.209 2.297-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.582l-3.065-.33c-.259-.056-.548-.266-.472-.66C5.977 2.412 8.807 1.5 11.35 1.5c1.3 0 2.998.346 4.025 1.329 1.3 1.214 1.175 2.832 1.175 4.595v4.165c0 1.252.519 1.8 1.007 2.476.173.24.21.527-.007.706l-2.406 2.024zm3.617 2.935C18.4 22.602 15.552 24 12.42 24 8.04 24 4.98 21.918 3 18.615l2.04-1.32C6.514 19.877 9.205 21.5 12.42 21.5c2.574 0 5.052-1.053 6.886-2.864l1.455 2.094z"/></svg>
+        <span class="btn-label"><span class="btn-top">Available at</span><span class="btn-name">Amazon Appstore</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://empirek76.github.io/somni-legal/privacy-policy/">Privacy Policy</a>
+    <a href="mailto:info@mysomni.app">Contact</a>
+  </div>
+  <p>© 2026 Srinivas Krishnan. All rights reserved. &nbsp;·&nbsp; mysomni.app</p>
+</footer>
+
+<script>
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+const stars=[];
+for(let i=0;i<120;i++){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*1.5+0.3,
+    a:Math.random(),
+    da:(Math.random()*0.005+0.002)*(Math.random()<0.5?1:-1),
+    speed:Math.random()*0.15+0.05
+  });
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{
+    s.a+=s.da;
+    if(s.a>1||s.a<0)s.da*=-1;
+    s.y+=s.speed;
+    if(s.y>canvas.height)s.y=0;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${Math.max(0,Math.min(1,s.a))})`;
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.15});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
