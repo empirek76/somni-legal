@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Somni — Reset Password</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #050218;
+      color: #EEEDFE;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .moon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 300; letter-spacing: 6px; margin-bottom: 8px; }
+    p { color: #7F77DD; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+    .btn {
+      background: #6B5FD4;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .sub { color: #534AB7; font-size: 12px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="moon">🌙</div>
+  <h1>SOMNI</h1>
+  <p>Opening Somni to reset<br>your password...</p>
+  <a class="btn" id="open-btn" href="#">Open Somni</a>
+  <p class="sub">If the app doesn't open, make sure<br>Somni is installed on your device.</p>
+
+  <script>
+    var hash = window.location.hash;
+    var deepLink = 'somni://reset-password' + hash;
+
+    document.getElementById('open-btn').href = deepLink;
+
+    // Auto-redirect after 1 second — gives the page time to render
+    // so the user sees the button if the auto-redirect is blocked
+    setTimeout(function() {
+      window.location.href = deepLink;
+    }, 1000);
+  </script>
+</body>
+</html>
