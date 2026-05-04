@@ -291,14 +291,17 @@ footer a:hover{color:rgba(255,255,255,0.7);}
 <body>
 
 <script>
-  // Handle confirmation redirects that land on homepage
-  const search = new URLSearchParams(window.location.search);
-  const hash = window.location.hash;
-  const tokenHash = search.get('token_hash');
-  const accessToken = search.get('access_token') ||
-    new URLSearchParams(hash.replace('#', '?')).get('access_token');
+  var search = new URLSearchParams(window.location.search);
+  var hash = window.location.hash;
+  var tokenHash = search.get('token_hash');
+  var hashParams = new URLSearchParams(hash.replace('#', '?'));
+  var accessToken = search.get('access_token') || hashParams.get('access_token');
+  var refreshToken = search.get('refresh_token') || hashParams.get('refresh_token');
+  var type = search.get('type') || hashParams.get('type') || 'signup';
 
-  if (tokenHash || accessToken) {
+  if (accessToken && refreshToken) {
+    window.location.href = 'somni://confirm#access_token=' + accessToken + '&refresh_token=' + refreshToken + '&type=' + type;
+  } else if (tokenHash) {
     window.location.href = '/confirm' + window.location.search + window.location.hash;
   }
 </script>
