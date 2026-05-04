@@ -30,6 +30,7 @@
     var hash = window.location.hash;
     var search = new URLSearchParams(window.location.search);
 
+    // Hash format: #access_token=... (old Supabase)
     if (hash) {
       var hashParams = new URLSearchParams(hash.replace('#', '?'));
       var accessToken = hashParams.get('access_token');
@@ -37,14 +38,21 @@
       var hashType = hashParams.get('type') || 'signup';
       if (accessToken) {
         window.location.href = 'somni://confirm#access_token=' + accessToken + '&refresh_token=' + refreshToken + '&type=' + hashType;
+        return;
       }
     }
 
+    // token_hash format: ?token_hash=... (new Supabase template variable)
     var tokenHash = search.get('token_hash');
-    var queryType = search.get('type') || 'email';
+    var queryType = search.get('type') || 'signup';
     if (tokenHash) {
       window.location.href = 'https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token_hash=' + tokenHash + '&type=' + queryType + '&redirect_to=https://mysomni.app/confirmed';
+      return;
     }
+
+    // ConfirmationURL format: Supabase already verified, redirected here with tokens in hash
+    // This happens when {{ .ConfirmationURL }} is used and redirect_to=https://mysomni.app/confirm
+    // In this case Supabase appends #access_token= after verifying — already handled above by hash block
   </script>
 </body>
 </html>
