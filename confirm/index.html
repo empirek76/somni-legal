@@ -27,19 +27,44 @@
     <p>Redirecting you back to Somni.<br>If nothing happens, please reopen the app.</p>
   </div>
   <script>
+    // Handle hash format (old): #access_token=...&type=signup
     const hash = window.location.hash;
-    const params = new URLSearchParams(hash.replace('#', '?'));
-    const accessToken = params.get('access_token');
-    const refreshToken = params.get('refresh_token');
+    if (hash) {
+      const params = new URLSearchParams(hash.replace('#', '?'));
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+      const type = params.get('type');
+      if (accessToken) {
+        window.location.href = `somni://confirm#access_token=${accessToken}&refresh_token=${refreshToken}&type=${type || 'signup'}`;
+      }
+    }
+
+    // Handle query string format (new): ?token_hash=...&type=email
+    const search = new URLSearchParams(window.location.search);
+    const tokenHash = search.get('token_hash');
+    const type = search.get('type');
+    const accessToken = search.get('access_token');
+    const refreshToken = search.get('refresh_token');
 
     if (accessToken) {
-      window.location.href = `somni://confirm#access_token=${accessToken}&refresh_token=${refreshToken}&type=signup`;
-    } else {
-      const search = new URLSearchParams(window.location.search);
-      const tokenHash = search.get('token_hash');
-      if (tokenHash) {
-        window.location.href = `somni://confirm?token_hash=${tokenHash}&type=email`;
-      }
+      window.location.href = `somni://confirm#access_token=${accessToken}&refresh_token=${refreshToken}&type=${type || 'signup'}`;
+    } else if (tokenHash) {
+      // Verify the token with Supabase first to get access_token
+      fetch(`https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloZGFzaGVkaXZzb2djdGNlcG9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MzM4MDcsImV4cCI6MjA1NjQwOTgwN30.1yCNpOHBBo9WKGN4lDxFl8GKvMJEfD8TwNkz4ZEDgjI'
+        },
+        body: JSON.stringify({ token_hash: tokenHash, type: type || 'email' })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.access_token) {
+          window.location.href = `somni://confirm#access_token=${data.access_token}&refresh_token=${data.refresh_token}&type=signup`;
+        }
+      })
+      .catch(() => {});
     }
   </script>
 </body>
