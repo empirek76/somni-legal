@@ -27,8 +27,8 @@
     <p>Redirecting you back to Somni.<br>If nothing happens, please reopen the app.</p>
   </div>
   <script>
-    var hash = window.location.hash;
     var search = new URLSearchParams(window.location.search);
+    var hash = window.location.hash;
 
     // Hash format: #access_token=... (old Supabase)
     if (hash) {
@@ -38,21 +38,43 @@
       var hashType = hashParams.get('type') || 'signup';
       if (accessToken) {
         window.location.href = 'somni://confirm#access_token=' + accessToken + '&refresh_token=' + refreshToken + '&type=' + hashType;
-        return;
       }
     }
 
-    // token_hash format: ?token_hash=... (new Supabase template variable)
-    var tokenHash = search.get('token_hash');
+    // Token format: ?token=...&type=signup (new template using {{ .Token }})
+    var token = search.get('token');
+    var email = search.get('email') || '';
     var queryType = search.get('type') || 'signup';
-    if (tokenHash) {
-      window.location.href = 'https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token_hash=' + tokenHash + '&type=' + queryType + '&redirect_to=https://mysomni.app/confirmed';
-      return;
-    }
+    if (token) {
+      var SUPABASE_URL = 'https://ihdashedivsogctcepoi.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloZGFzaGVkaXZzb2djdGNlcG9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkwMTc2NTMsImV4cCI6MjA1NDU5MzY1M30.3ep0MM3CR5jkDGTMKsGEFZIObkHMdF2rHWhGgMPvFig';
 
-    // ConfirmationURL format: Supabase already verified, redirected here with tokens in hash
-    // This happens when {{ .ConfirmationURL }} is used and redirect_to=https://mysomni.app/confirm
-    // In this case Supabase appends #access_token= after verifying — already handled above by hash block
+      fetch(SUPABASE_URL + '/auth/v1/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({
+          token: token,
+          type: queryType,
+          email: email
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.access_token && data.refresh_token) {
+          window.location.href = 'somni://confirm#access_token=' + data.access_token + '&refresh_token=' + data.refresh_token + '&type=' + queryType;
+        } else {
+          document.querySelector('h1').textContent = 'Confirmation failed';
+          document.querySelector('p').textContent = 'Please try signing up again or contact support.';
+        }
+      })
+      .catch(function() {
+        document.querySelector('h1').textContent = 'Something went wrong';
+        document.querySelector('p').textContent = 'Please reopen Somni and try again.';
+      });
+    }
   </script>
 </body>
 </html>
