@@ -290,6 +290,19 @@ footer a:hover{color:rgba(255,255,255,0.7);}
 </head>
 <body>
 
+<script>
+  // Handle confirmation redirects that land on homepage
+  const search = new URLSearchParams(window.location.search);
+  const hash = window.location.hash;
+  const tokenHash = search.get('token_hash');
+  const accessToken = search.get('access_token') ||
+    new URLSearchParams(hash.replace('#', '?')).get('access_token');
+
+  if (tokenHash || accessToken) {
+    window.location.href = '/confirm' + window.location.search + window.location.hash;
+  }
+</script>
+
 <canvas class="stars" id="stars"></canvas>
 
 <nav>
