@@ -45,7 +45,7 @@
     const tokenHash = search.get('token_hash');
     const type = search.get('type') || 'email';
     if (tokenHash) {
-      window.location.href = `https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token=${tokenHash}&type=${type}&redirect_to=somni://confirm`;
+      window.location.href = `https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token_hash=${tokenHash}&type=${type}&redirect_to=somni://confirm`;
     }
   </script>
 </body>
