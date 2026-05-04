@@ -27,7 +27,6 @@
     <p>Redirecting you back to Somni.<br>If nothing happens, please reopen the app.</p>
   </div>
   <script>
-    // Handle hash format (old): #access_token=...&type=signup
     const hash = window.location.hash;
     if (hash) {
       const params = new URLSearchParams(hash.replace('#', '?'));
@@ -36,35 +35,16 @@
       const type = params.get('type');
       if (accessToken) {
         window.location.href = `somni://confirm#access_token=${accessToken}&refresh_token=${refreshToken}&type=${type || 'signup'}`;
+        return;
       }
     }
 
-    // Handle query string format (new): ?token_hash=...&type=email
     const search = new URLSearchParams(window.location.search);
     const tokenHash = search.get('token_hash');
-    const type = search.get('type');
-    const accessToken = search.get('access_token');
-    const refreshToken = search.get('refresh_token');
+    const type = search.get('type') || 'email';
 
-    if (accessToken) {
-      window.location.href = `somni://confirm#access_token=${accessToken}&refresh_token=${refreshToken}&type=${type || 'signup'}`;
-    } else if (tokenHash) {
-      // Verify the token with Supabase first to get access_token
-      fetch(`https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloZGFzaGVkaXZzb2djdGNlcG9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4MzM4MDcsImV4cCI6MjA1NjQwOTgwN30.1yCNpOHBBo9WKGN4lDxFl8GKvMJEfD8TwNkz4ZEDgjI'
-        },
-        body: JSON.stringify({ token_hash: tokenHash, type: type || 'email' })
-      })
-      .then(r => r.json())
-      .then(data => {
-        if (data.access_token) {
-          window.location.href = `somni://confirm#access_token=${data.access_token}&refresh_token=${data.refresh_token}&type=signup`;
-        }
-      })
-      .catch(() => {});
+    if (tokenHash) {
+      window.location.href = `https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token=${tokenHash}&type=${type}&redirect_to=somni://confirm`;
     }
   </script>
 </body>
