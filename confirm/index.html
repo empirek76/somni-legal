@@ -7,7 +7,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: sans-serif;
       background: #0D0B1A;
       color: #FFFFFF;
       display: flex;
@@ -27,23 +27,23 @@
     <p>Redirecting you back to Somni.<br>If nothing happens, please reopen the app.</p>
   </div>
   <script>
-    const hash = window.location.hash;
-    const search = new URLSearchParams(window.location.search);
+    var hash = window.location.hash;
+    var search = new URLSearchParams(window.location.search);
 
     if (hash) {
-      const params = new URLSearchParams(hash.replace('#', '?'));
-      const accessToken = params.get('access_token');
-      const refreshToken = params.get('refresh_token');
-      const type = params.get('type') || 'signup';
+      var hashParams = new URLSearchParams(hash.replace('#', '?'));
+      var accessToken = hashParams.get('access_token');
+      var refreshToken = hashParams.get('refresh_token');
+      var hashType = hashParams.get('type') || 'signup';
       if (accessToken) {
-        window.location.href = `somni://confirm#access_token=${accessToken}&refresh_token=${refreshToken}&type=${type}`;
+        window.location.href = 'somni://confirm#access_token=' + accessToken + '&refresh_token=' + refreshToken + '&type=' + hashType;
       }
     }
 
-    const tokenHash = search.get('token_hash');
-    const type = search.get('type') || 'email';
+    var tokenHash = search.get('token_hash');
+    var queryType = search.get('type') || 'email';
     if (tokenHash) {
-      window.location.href = `https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token_hash=${tokenHash}&type=${type}&redirect_to=https://mysomni.app/confirmed`;
+      window.location.href = 'https://ihdashedivsogctcepoi.supabase.co/auth/v1/verify?token_hash=' + tokenHash + '&type=' + queryType + '&redirect_to=https://mysomni.app/confirmed';
     }
   </script>
 </body>
