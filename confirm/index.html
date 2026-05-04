@@ -1,80 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Somni — Confirming your email</title>
+  <title>Somni — Confirm Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
+      background: #050218;
+      color: #EEEDFE;
       font-family: sans-serif;
-      background: #0D0B1A;
-      color: #FFFFFF;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      margin: 0;
       text-align: center;
       padding: 24px;
+      box-sizing: border-box;
     }
-    h1 { font-size: 24px; margin-bottom: 12px; color: #9B6FD0; }
-    p { font-size: 16px; color: #9B9BB0; line-height: 1.6; }
+    .moon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 300; letter-spacing: 6px; margin-bottom: 8px; }
+    p { color: #7F77DD; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+    .btn {
+      background: #6B5FD4;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .sub { color: #534AB7; font-size: 12px; margin-top: 16px; }
   </style>
 </head>
 <body>
-  <div>
-    <h1>Confirming your email…</h1>
-    <p>Redirecting you back to Somni.<br>If nothing happens, please reopen the app.</p>
-  </div>
+  <div class="moon">🌙</div>
+  <h1>SOMNI</h1>
+  <p>Your email is confirmed.<br>Tap below to open Somni.</p>
+  <a class="btn" id="open-btn" href="#">Open Somni</a>
+  <p class="sub">If the app doesn't open, make sure<br>Somni is installed on your device.</p>
+
   <script>
-    var search = new URLSearchParams(window.location.search);
     var hash = window.location.hash;
-
-    // Hash format: #access_token=... (old Supabase)
-    if (hash) {
-      var hashParams = new URLSearchParams(hash.replace('#', '?'));
-      var accessToken = hashParams.get('access_token');
-      var refreshToken = hashParams.get('refresh_token');
-      var hashType = hashParams.get('type') || 'signup';
-      if (accessToken) {
-        window.location.href = 'somni://confirm#access_token=' + accessToken + '&refresh_token=' + refreshToken + '&type=' + hashType;
-      }
-    }
-
-    // Token format: ?token=...&type=signup (new template using {{ .Token }})
-    var token = search.get('token');
-    var email = search.get('email') || '';
-    var queryType = search.get('type') || 'signup';
-    if (token) {
-      var SUPABASE_URL = 'https://ihdashedivsogctcepoi.supabase.co';
-      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloZGFzaGVkaXZzb2djdGNlcG9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkwMTc2NTMsImV4cCI6MjA1NDU5MzY1M30.3ep0MM3CR5jkDGTMKsGEFZIObkHMdF2rHWhGgMPvFig';
-
-      fetch(SUPABASE_URL + '/auth/v1/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY
-        },
-        body: JSON.stringify({
-          token: token,
-          type: queryType,
-          email: email
-        })
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.access_token && data.refresh_token) {
-          window.location.href = 'somni://confirm#access_token=' + data.access_token + '&refresh_token=' + data.refresh_token + '&type=' + queryType;
-        } else {
-          document.querySelector('h1').textContent = 'Confirmation failed';
-          document.querySelector('p').textContent = 'Please try signing up again or contact support.';
-        }
-      })
-      .catch(function() {
-        document.querySelector('h1').textContent = 'Something went wrong';
-        document.querySelector('p').textContent = 'Please reopen Somni and try again.';
-      });
-    }
+    var deepLink = 'somni://confirm' + hash;
+    document.getElementById('open-btn').href = deepLink;
+    window.location.href = deepLink;
   </script>
 </body>
 </html>
