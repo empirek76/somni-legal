@@ -3,21 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Somni — Where dreams meet destiny.</title>
-<meta name="description" content="Somni: AI dream interpretation meets your complete cosmic blueprint — Western and Vedic astrology decoded for you.">
+<title>Somni — Where Dreams Meet Destiny</title>
+<meta name="description" content="Somni interprets your dreams through the lens of your cosmic blueprint — AI dream analysis combined with the most comprehensive Western and Vedic astrology engine available on any app.">
+<meta property="og:title" content="Somni — Where Dreams Meet Destiny">
+<meta property="og:description" content="AI dream interpretation meets your complete cosmic blueprint. Western and Vedic astrology decoded for you.">
+<meta property="og:url" content="https://mysomni.app">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --ink:#0D0B1A;
-  --ink2:#3D3560;
-  --mist:#F4F2FF;
-  --violet:#6B3FA0;
-  --violet-light:#9B6FD0;
+  --ink:#080614;
+  --ink2:#110E24;
+  --violet:#7B5CF0;
+  --violet-light:#A78BFA;
+  --violet-dim:rgba(123,92,240,0.15);
   --gold:#C9A84C;
+  --gold-dim:rgba(201,168,76,0.15);
   --white:#FFFFFF;
+  --muted:rgba(255,255,255,0.5);
+  --card:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);
+  --border-violet:rgba(123,92,240,0.25);
 }
 
 html{scroll-behavior:smooth}
@@ -27,88 +35,88 @@ body{
   background:var(--ink);
   color:var(--white);
   overflow-x:hidden;
+  line-height:1.6;
 }
 
-/* ── STARS ── */
-.stars{
-  position:fixed;top:0;left:0;width:100%;height:100%;
+/* ── STARS CANVAS ── */
+#stars{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
   pointer-events:none;z-index:0;
 }
-.star{
-  position:absolute;border-radius:50%;
-  background:rgba(255,255,255,0.6);
-  animation:twinkle var(--d,3s) ease-in-out infinite alternate;
-}
-@keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}100%{opacity:0.8;transform:scale(1.1)}}
 
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;
   display:flex;align-items:center;justify-content:space-between;
-  padding:1.25rem 2.5rem;
-  background:rgba(13,11,26,0.7);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:1.25rem 3rem;
+  background:rgba(8,6,20,0.8);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
   z-index:100;
 }
 .nav-logo{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.5rem;font-weight:600;
-  letter-spacing:0.12em;
-  color:var(--white);
-  text-decoration:none;
+  font-size:1.4rem;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  display:flex;align-items:center;gap:0.5rem;
 }
-.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:2rem;}
 .nav-link{
-  font-size:0.85rem;font-weight:400;
-  color:rgba(255,255,255,0.55);
-  text-decoration:none;
-  letter-spacing:0.05em;
+  font-size:0.82rem;font-weight:400;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:0.06em;
   transition:color 0.2s;
 }
 .nav-link:hover{color:var(--white);}
+.nav-cta{
+  font-size:0.82rem;font-weight:500;
+  color:var(--white);text-decoration:none;
+  background:var(--violet);
+  padding:0.5rem 1.25rem;
+  border-radius:100px;
+  transition:all 0.2s;
+  letter-spacing:0.03em;
+}
+.nav-cta:hover{background:#6B4FD8;transform:translateY(-1px);}
 
 /* ── HERO ── */
 .hero{
-  position:relative;
+  position:relative;z-index:1;
   min-height:100vh;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   text-align:center;
-  padding:7rem 2rem 4rem;
-  z-index:1;
-}
-
-.moon{
-  font-size:5rem;
-  display:block;
-  margin-bottom:2rem;
-  animation:float 6s ease-in-out infinite;
-  filter:drop-shadow(0 0 40px rgba(201,168,76,0.4));
-}
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-14px)}
+  padding:8rem 2rem 5rem;
 }
 
 .hero-eyebrow{
-  font-size:0.75rem;
-  font-weight:500;
-  letter-spacing:0.25em;
-  text-transform:uppercase;
+  font-size:0.72rem;font-weight:500;
+  letter-spacing:0.3em;text-transform:uppercase;
   color:var(--gold);
-  margin-bottom:1.25rem;
+  margin-bottom:1.5rem;
+  opacity:0;animation:fadeUp 0.8s 0.2s forwards;
+}
+
+.moon-glow{
+  font-size:4.5rem;
+  display:block;margin-bottom:1.5rem;
+  animation:float 7s ease-in-out infinite, fadeUp 0.8s 0.1s forwards;
+  opacity:0;
+  filter:drop-shadow(0 0 60px rgba(201,168,76,0.5));
 }
 
 h1{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(3rem,7vw,5.5rem);
-  font-weight:400;
-  line-height:1.08;
+  font-size:clamp(3.2rem,7vw,6rem);
+  font-weight:300;
+  line-height:1.05;
   letter-spacing:-0.01em;
   color:var(--white);
-  max-width:700px;
-  margin:0 auto 1.5rem;
+  max-width:800px;
+  margin:0 auto 1.75rem;
+  opacity:0;animation:fadeUp 0.9s 0.3s forwards;
 }
 h1 em{
   font-style:italic;
@@ -116,325 +124,780 @@ h1 em{
 }
 
 .hero-sub{
-  font-size:1.05rem;
-  font-weight:300;
-  color:rgba(255,255,255,0.55);
-  max-width:480px;
+  font-size:1.05rem;font-weight:300;
+  color:var(--muted);
+  max-width:520px;
   margin:0 auto 3rem;
-  line-height:1.75;
+  line-height:1.8;
+  opacity:0;animation:fadeUp 0.9s 0.45s forwards;
 }
 
 /* ── STORE BUTTONS ── */
 .store-row{
   display:flex;flex-wrap:wrap;
-  gap:1rem;justify-content:center;
-  margin-bottom:1rem;
+  gap:0.875rem;justify-content:center;
+  opacity:0;animation:fadeUp 0.9s 0.6s forwards;
 }
 .store-btn{
-  display:inline-flex;align-items:center;gap:0.6rem;
-  padding:0.75rem 1.5rem;
-  border-radius:50px;
-  font-size:0.85rem;
-  font-weight:500;
-  letter-spacing:0.02em;
+  display:inline-flex;align-items:center;gap:0.65rem;
+  padding:0.8rem 1.6rem;
+  border-radius:100px;
+  font-size:0.82rem;font-weight:500;
   text-decoration:none;
   transition:all 0.25s;
-  border:1px solid rgba(255,255,255,0.18);
-  background:rgba(255,255,255,0.07);
+  border:1px solid var(--border-violet);
+  background:var(--violet-dim);
   color:var(--white);
   backdrop-filter:blur(8px);
+  letter-spacing:0.02em;
 }
 .store-btn:hover{
-  background:rgba(255,255,255,0.14);
-  border-color:rgba(255,255,255,0.35);
+  background:rgba(123,92,240,0.3);
+  border-color:var(--violet);
   transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(123,92,240,0.2);
 }
-.store-btn svg{width:20px;height:20px;flex-shrink:0;}
+.store-btn svg{width:18px;height:18px;flex-shrink:0;opacity:0.9;}
 .store-btn .btn-label{display:flex;flex-direction:column;text-align:left;}
-.store-btn .btn-top{font-size:0.65rem;font-weight:300;opacity:0.7;letter-spacing:0.05em;}
-.store-btn .btn-name{font-size:0.9rem;font-weight:500;}
+.store-btn .btn-top{font-size:0.62rem;font-weight:300;opacity:0.65;letter-spacing:0.06em;}
+.store-btn .btn-name{font-size:0.88rem;font-weight:500;line-height:1.2;}
+
+.hero-note{
+  margin-top:1.5rem;
+  font-size:0.75rem;color:var(--muted);
+  opacity:0;animation:fadeUp 0.9s 0.75s forwards;
+  letter-spacing:0.05em;
+}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+  opacity:0;animation:fadeIn 1s 1.2s forwards;
+  color:var(--muted);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom, var(--muted), transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* ── SECTION BASE ── */
+section{position:relative;z-index:1;}
+
+.section-eyebrow{
+  font-size:0.72rem;font-weight:500;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+  display:block;
+}
+
+h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:300;line-height:1.1;
+}
+h2 em{font-style:italic;color:var(--violet-light);}
 
 /* ── DIVIDER ── */
 .divider{
-  display:flex;align-items:center;gap:1rem;
-  max-width:600px;margin:5rem auto;
+  display:flex;align-items:center;gap:1.5rem;
+  max-width:700px;margin:0 auto;
   padding:0 2rem;
 }
 .divider::before,.divider::after{
   content:'';flex:1;
-  height:1px;background:rgba(255,255,255,0.08);
+  height:1px;background:var(--border);
 }
-.divider-icon{color:var(--gold);font-size:1rem;opacity:0.6;}
+.divider-sym{color:var(--gold);font-size:0.9rem;opacity:0.5;letter-spacing:0.3em;}
 
-/* ── FEATURES ── */
-.features{
-  position:relative;z-index:1;
-  max-width:900px;margin:0 auto;
-  padding:0 2rem 6rem;
-}
-
-.features-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,4vw,3rem);
-  font-weight:400;
+/* ── PROBLEM SECTION ── */
+.problem{
+  padding:7rem 2rem;
   text-align:center;
-  margin-bottom:3.5rem;
-  color:rgba(255,255,255,0.9);
+  max-width:700px;margin:0 auto;
 }
-.features-title em{font-style:italic;color:var(--violet-light);}
+.problem h2{margin-bottom:1.5rem;}
+.problem p{
+  font-size:1.05rem;font-weight:300;
+  color:var(--muted);line-height:1.85;
+}
+.problem p + p{margin-top:1rem;}
 
-.feature-grid{
+/* ── FEATURES TWO-COL ── */
+.features-section{
+  padding:5rem 2rem 7rem;
+  max-width:1100px;margin:0 auto;
+}
+.features-header{
+  text-align:center;margin-bottom:4rem;
+}
+.features-header h2{margin-bottom:1rem;}
+.features-header p{
+  font-size:1rem;font-weight:300;
+  color:var(--muted);max-width:500px;
+  margin:0 auto;line-height:1.8;
+}
+
+.features-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:1.25rem;
 }
-
 .feature-card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
   padding:2rem;
   transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.feature-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--violet-light),transparent);
+  opacity:0;transition:opacity 0.3s;
 }
 .feature-card:hover{
-  background:rgba(107,63,160,0.15);
-  border-color:rgba(155,111,208,0.3);
-  transform:translateY(-3px);
+  background:rgba(123,92,240,0.08);
+  border-color:var(--border-violet);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
 }
-.feature-card.highlight{
-  background:rgba(107,63,160,0.10);
-  border-color:rgba(155,111,208,0.2);
+.feature-card:hover::before{opacity:1;}
+.feature-icon{
+  font-size:1.75rem;margin-bottom:1rem;display:block;
 }
-.feature-icon{font-size:1.75rem;margin-bottom:1rem;display:block;}
 .feature-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.3rem;font-weight:600;
-  margin-bottom:0.5rem;
-  color:var(--white);
+  font-size:1.35rem;font-weight:600;
+  margin-bottom:0.5rem;color:var(--white);
 }
 .feature-desc{
   font-size:0.875rem;font-weight:300;
-  color:rgba(255,255,255,0.5);
-  line-height:1.7;
+  color:var(--muted);line-height:1.75;
+}
+
+/* ── BLUEPRINT SECTION ── */
+.blueprint-section{
+  padding:5rem 2rem 7rem;
+  max-width:1100px;margin:0 auto;
+}
+.blueprint-inner{
+  background:linear-gradient(135deg,rgba(123,92,240,0.1),rgba(201,168,76,0.05));
+  border:1px solid var(--border-violet);
+  border-radius:28px;
+  padding:4rem;
+  position:relative;overflow:hidden;
+}
+.blueprint-inner::before{
+  content:'';
+  position:absolute;top:-50%;right:-20%;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(123,92,240,0.08),transparent 70%);
+  pointer-events:none;
+}
+.blueprint-header{
+  text-align:center;margin-bottom:3.5rem;
+}
+.blueprint-header h2{margin-bottom:1rem;}
+.blueprint-header p{
+  font-size:1rem;color:var(--muted);
+  font-weight:300;line-height:1.8;
+  max-width:550px;margin:0 auto;
+}
+
+.blueprint-cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2.5rem;
+}
+.blueprint-col h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:600;
+  margin-bottom:1.25rem;
+  padding-bottom:0.75rem;
+  border-bottom:1px solid var(--border);
+  color:var(--white);
+}
+.blueprint-col h3 span{
+  font-size:0.75rem;font-weight:400;
+  color:var(--gold);letter-spacing:0.15em;
+  text-transform:uppercase;
+  display:block;margin-bottom:0.25rem;
+  font-family:'DM Sans',sans-serif;
+}
+.blueprint-list{
+  list-style:none;
+  display:flex;flex-direction:column;gap:0.625rem;
+}
+.blueprint-list li{
+  font-size:0.875rem;font-weight:300;
+  color:var(--muted);
+  display:flex;align-items:baseline;gap:0.625rem;
+  line-height:1.5;
+}
+.blueprint-list li::before{
+  content:'·';
+  color:var(--violet-light);flex-shrink:0;
+  font-size:1.2rem;line-height:0.8;
+}
+
+/* ── INTERSECTION SECTION ── */
+.intersection{
+  padding:6rem 2rem;
+  text-align:center;
+  max-width:700px;margin:0 auto;
+}
+.intersection h2{margin-bottom:1.5rem;}
+.intersection p{
+  font-size:1.05rem;font-weight:300;
+  color:var(--muted);line-height:1.85;margin-bottom:1rem;
+}
+.intersection-badge{
+  display:inline-block;
+  margin-top:1.5rem;
+  padding:0.5rem 1.25rem;
+  border:1px solid var(--border-violet);
+  border-radius:100px;
+  font-size:0.8rem;font-weight:400;
+  color:var(--violet-light);
+  letter-spacing:0.08em;
+  background:var(--violet-dim);
+}
+
+/* ── PDF SECTION ── */
+.pdf-section{
+  padding:4rem 2rem 6rem;
+  max-width:800px;margin:0 auto;
+  text-align:center;
+}
+.pdf-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:3rem;
+}
+.pdf-card h2{margin-bottom:1rem;}
+.pdf-card p{
+  font-size:0.95rem;font-weight:300;
+  color:var(--muted);line-height:1.8;
+  margin-bottom:0.75rem;
+}
+.pdf-pages{
+  display:flex;flex-wrap:wrap;
+  justify-content:center;gap:0.5rem;
+  margin-top:1.5rem;
+}
+.pdf-page-tag{
+  font-size:0.75rem;font-weight:400;
+  color:var(--violet-light);
+  background:var(--violet-dim);
+  border:1px solid var(--border-violet);
+  border-radius:100px;
+  padding:0.3rem 0.875rem;
+  letter-spacing:0.03em;
+}
+
+/* ── PRO SECTION ── */
+.pro-section{
+  padding:5rem 2rem 7rem;
+  max-width:900px;margin:0 auto;
+}
+.pro-inner{
+  background:linear-gradient(135deg,rgba(123,92,240,0.12),rgba(8,6,20,0));
+  border:1px solid var(--border-violet);
+  border-radius:28px;
+  padding:4rem;
+  text-align:center;
+}
+.pro-inner h2{margin-bottom:0.75rem;}
+.pro-inner > p{
+  font-size:1rem;font-weight:300;
+  color:var(--muted);line-height:1.8;
+  margin-bottom:2.5rem;
+  max-width:480px;margin-left:auto;margin-right:auto;
+}
+
+.pro-table{
+  width:100%;border-collapse:collapse;
+  margin-bottom:2.5rem;
+  text-align:left;
+}
+.pro-table th{
+  font-size:0.72rem;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);
+  padding:0.75rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+.pro-table td{
+  font-size:0.875rem;font-weight:300;
+  padding:0.7rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  color:var(--muted);
+}
+.pro-table td:first-child{color:var(--white);}
+.pro-table td.check{color:var(--violet-light);text-align:center;}
+.pro-table td.dash{color:rgba(255,255,255,0.2);text-align:center;}
+.pro-table th:not(:first-child){text-align:center;}
+
+.pro-pricing{
+  font-size:0.82rem;font-weight:300;
+  color:var(--muted);margin-bottom:2rem;
+  letter-spacing:0.05em;
+}
+.pro-pricing strong{color:var(--white);font-weight:500;}
+
+/* ── TRUST SECTION ── */
+.trust-section{
+  padding:4rem 2rem 6rem;
+  max-width:900px;margin:0 auto;
+  text-align:center;
+}
+.trust-section h2{margin-bottom:3rem;}
+.trust-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+}
+.trust-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:2rem 1.5rem;
+}
+.trust-icon{font-size:1.75rem;display:block;margin-bottom:1rem;}
+.trust-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:600;
+  margin-bottom:0.5rem;
+}
+.trust-desc{
+  font-size:0.85rem;font-weight:300;
+  color:var(--muted);line-height:1.7;
 }
 
 /* ── QUOTE ── */
 .quote-section{
-  position:relative;z-index:1;
+  padding:4rem 2rem;
   text-align:center;
-  padding:4rem 2rem 6rem;
-  max-width:600px;margin:0 auto;
+  max-width:650px;margin:0 auto;
 }
 blockquote{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.5rem,3vw,2.25rem);
-  font-style:italic;
-  font-weight:400;
-  color:rgba(255,255,255,0.75);
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  font-style:italic;font-weight:300;
+  color:rgba(255,255,255,0.8);
   line-height:1.5;
-  position:relative;
+  position:relative;padding:0 2rem;
 }
 blockquote::before{
   content:'"';
-  font-size:5rem;line-height:0;
-  position:absolute;top:1.5rem;left:-1rem;
-  color:var(--gold);opacity:0.25;
+  font-size:6rem;line-height:0;
+  position:absolute;top:2rem;left:-0.5rem;
+  color:var(--gold);opacity:0.2;
 }
 
-/* ── CTA ── */
+/* ── FINAL CTA ── */
 .cta-section{
-  position:relative;z-index:1;
+  padding:4rem 2rem 7rem;
   text-align:center;
-  padding:0 2rem 8rem;
 }
 .cta-inner{
-  max-width:520px;margin:0 auto;
-  background:rgba(107,63,160,0.12);
-  border:1px solid rgba(155,111,208,0.2);
-  border-radius:24px;
-  padding:3rem 2rem;
+  max-width:560px;margin:0 auto;
+  background:linear-gradient(135deg,rgba(123,92,240,0.1),rgba(201,168,76,0.05));
+  border:1px solid var(--border-violet);
+  border-radius:28px;
+  padding:4rem 2.5rem;
 }
-.cta-title{
+.cta-moon{font-size:3rem;display:block;margin-bottom:1.5rem;}
+.cta-inner h2{margin-bottom:0.75rem;}
+.cta-inner p{
+  font-size:0.95rem;font-weight:300;
+  color:var(--muted);margin-bottom:2rem;
+  line-height:1.8;
+}
+.cta-tagline{
+  margin-top:1.5rem;
   font-family:'Cormorant Garamond',serif;
-  font-size:2rem;font-weight:400;
-  margin-bottom:0.75rem;
-}
-.cta-sub{
-  font-size:0.875rem;font-weight:300;
-  color:rgba(255,255,255,0.5);
-  margin-bottom:2rem;
-  line-height:1.7;
+  font-size:1rem;font-style:italic;
+  color:rgba(255,255,255,0.3);
 }
 
 /* ── FOOTER ── */
 footer{
   position:relative;z-index:1;
   text-align:center;
-  padding:2rem;
-  border-top:1px solid rgba(255,255,255,0.06);
-  font-size:0.8rem;
-  color:rgba(255,255,255,0.25);
+  padding:2.5rem 2rem;
+  border-top:1px solid var(--border);
 }
-footer a{color:rgba(255,255,255,0.4);text-decoration:none;}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  margin-bottom:1rem;
+  display:block;
+}
+.footer-links{
+  display:flex;gap:1.5rem;
+  justify-content:center;margin-bottom:1rem;
+  flex-wrap:wrap;
+}
+footer a{
+  font-size:0.8rem;color:rgba(255,255,255,0.35);
+  text-decoration:none;transition:color 0.2s;
+}
 footer a:hover{color:rgba(255,255,255,0.7);}
-.footer-links{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap;}
+.footer-copy{
+  font-size:0.75rem;
+  color:rgba(255,255,255,0.2);
+}
 
 /* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+  from{opacity:0}to{opacity:1}
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
 .fade-up{
-  opacity:0;transform:translateY(24px);
-  transition:opacity 0.7s ease,transform 0.7s ease;
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.75s ease,transform 0.75s ease;
 }
 .fade-up.visible{opacity:1;transform:translateY(0);}
 
-@media(max-width:600px){
+/* ── MOBILE ── */
+@media(max-width:768px){
   nav{padding:1rem 1.25rem;}
-  .store-btn{padding:0.65rem 1.1rem;}
+  .nav-links{display:none;}
+  .blueprint-cols{grid-template-columns:1fr;}
+  .blueprint-inner{padding:2.5rem 1.5rem;}
+  .pro-inner{padding:2.5rem 1.25rem;}
+  .pro-table{font-size:0.8rem;}
+  .pro-table td,.pro-table th{padding:0.6rem 0.5rem;}
+  .cta-inner{padding:3rem 1.5rem;}
+}
+@media(max-width:480px){
+  h1{font-size:2.8rem;}
+  .store-btn{padding:0.7rem 1.1rem;}
 }
 </style>
 </head>
 <body>
 
 <script>
-  var search = new URLSearchParams(window.location.search);
-  var hash = window.location.hash;
-  var tokenHash = search.get('token_hash');
-  var hashParams = new URLSearchParams(hash.replace('#', '?'));
-  var accessToken = search.get('access_token') || hashParams.get('access_token');
-  var refreshToken = search.get('refresh_token') || hashParams.get('refresh_token');
-  var type = search.get('type') || hashParams.get('type') || 'signup';
-
-  if (accessToken && refreshToken) {
-    window.location.href = 'somni://confirm#access_token=' + accessToken + '&refresh_token=' + refreshToken + '&type=' + type;
-  } else if (tokenHash) {
-    window.location.href = '/confirm' + window.location.search + window.location.hash;
-  }
+var search=new URLSearchParams(window.location.search);
+var hash=window.location.hash;
+var tokenHash=search.get('token_hash');
+var hashParams=new URLSearchParams(hash.replace('#','?'));
+var accessToken=search.get('access_token')||hashParams.get('access_token');
+var refreshToken=search.get('refresh_token')||hashParams.get('refresh_token');
+var type=search.get('type')||hashParams.get('type')||'signup';
+if(accessToken&&refreshToken){
+  window.location.href='somni://confirm#access_token='+accessToken+'&refresh_token='+refreshToken+'&type='+type;
+}else if(tokenHash){
+  window.location.href='/confirm'+window.location.search+window.location.hash;
+}
 </script>
 
-<canvas class="stars" id="stars"></canvas>
+<canvas id="stars"></canvas>
 
 <nav>
-  <a class="nav-logo" href="/"><span>🌙</span> SOMNI</a>
-  <a class="nav-link" href="https://empirek76.github.io/somni-legal/privacy-policy/">Privacy</a>
+  <a class="nav-logo" href="/">🌙 Somni</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#blueprint">Blueprint</a>
+    <a class="nav-link" href="#pro">Pro</a>
+    <a class="nav-link" href="https://empirek76.github.io/somni-legal/privacy-policy/">Privacy</a>
+    <a class="nav-cta" href="https://apps.apple.com/app/id6764004239">Download Free</a>
+  </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <span class="moon">🌙</span>
+  <span class="moon-glow">🌙</span>
   <p class="hero-eyebrow">Dreams &amp; Cosmic Blueprint</p>
-  <h1>Where dreams <em>meet destiny.</em></h1>
-  <p class="hero-sub">AI dream interpretation meets your complete cosmic blueprint — Western and Vedic astrology decoded for you.</p>
+  <h1>Where dreams meet <em>destiny.</em></h1>
+  <p class="hero-sub">Somni interprets your dreams through the lens of your cosmic blueprint — AI dream analysis combined with the most comprehensive Western and Vedic astrology engine available on any app.</p>
 
   <div class="store-row">
-    <a href="#" class="store-btn">
+    <a href="https://apps.apple.com/app/id6764004239" class="store-btn">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <span class="btn-label"><span class="btn-top">Download on the</span><span class="btn-name">App Store</span></span>
     </a>
-    <a href="#" class="store-btn">
+    <a href="https://play.google.com/store/apps/details?id=com.empirek76.somni" class="store-btn">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>
       <span class="btn-label"><span class="btn-top">Get it on</span><span class="btn-name">Google Play</span></span>
     </a>
-    <a href="#" class="store-btn">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.734 1.767-2.962 2.297-5.209 2.297-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.582l-3.065-.33c-.259-.056-.548-.266-.472-.66C5.977 2.412 8.807 1.5 11.35 1.5c1.3 0 2.998.346 4.025 1.329 1.3 1.214 1.175 2.832 1.175 4.595v4.165c0 1.252.519 1.8 1.007 2.476.173.24.21.527-.007.706l-2.406 2.024zm3.617 2.935C18.4 22.602 15.552 24 12.42 24 8.04 24 4.98 21.918 3 18.615l2.04-1.32C6.514 19.877 9.205 21.5 12.42 21.5c2.574 0 5.052-1.053 6.886-2.864l1.455 2.094z"/></svg>
-      <span class="btn-label"><span class="btn-top">Available at</span><span class="btn-name">Amazon Appstore</span></span>
-    </a>
+  </div>
+  <p class="hero-note">Free to download · iOS &amp; Android</p>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
   </div>
 </section>
 
-<div class="divider"><span class="divider-icon">✦</span></div>
+<!-- DIVIDER -->
+<div class="divider"><span class="divider-sym">✦ ✦ ✦</span></div>
 
-<section class="features">
-  <h2 class="features-title fade-up">Dreams, destiny, <em>and everything between</em></h2>
-  <div class="feature-grid">
-    <div class="feature-card highlight fade-up">
-      <span class="feature-icon">✦</span>
-      <p class="feature-title">Celestial Blueprint</p>
-      <p class="feature-desc">Your complete Western and Vedic natal chart — planets, signs, houses, transits, Dasa periods, and daily cosmic forecasts across every life domain.</p>
-    </div>
-    <div class="feature-card highlight fade-up">
-      <span class="feature-icon">🔱</span>
-      <p class="feature-title">Vedic Jyotish</p>
-      <p class="feature-desc">Rashi chart, Navamsa D9, Panchanga at birth, Vimshottari Dasa timeline, and Gochara transits — the full depth of Vedic astrology in one place.</p>
-    </div>
+<!-- PROBLEM -->
+<section class="problem fade-up">
+  <span class="section-eyebrow">The insight</span>
+  <h2>Your dreams are trying to tell you something. <em>So are the stars.</em></h2>
+  <br>
+  <p>Most apps treat dreams as isolated events — a nightly curiosity to look up in a dictionary. Most astrology apps give you a birth chart with no context for your daily life.</p>
+  <p>Somni connects both. Your dreams don't happen in a vacuum — they emerge from the same inner landscape your birth chart describes. When you understand both together, you understand yourself at a depth nothing else can reach.</p>
+</section>
+
+<div class="divider"><span class="divider-sym">✦</span></div>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-header fade-up">
+    <span class="section-eyebrow">Dream Intelligence</span>
+    <h2>Your dreams, <em>decoded by AI</em></h2>
+    <p>Record your dream by voice the moment you wake — before the details fade. Somni transcribes, interprets, and reveals the patterns your subconscious is speaking.</p>
+  </div>
+  <div class="features-grid">
     <div class="feature-card fade-up">
       <span class="feature-icon">🎙️</span>
       <p class="feature-title">Voice-first recording</p>
-      <p class="feature-desc">Speak in fragments the moment you wake. Somni stitches them together before they fade.</p>
+      <p class="feature-desc">Speak in fragments the moment you wake. Somni transcribes with AI before the dream fades — no typing, no friction.</p>
     </div>
     <div class="feature-card fade-up">
       <span class="feature-icon">✨</span>
       <p class="feature-title">AI interpretation</p>
-      <p class="feature-desc">Claude AI delivers warm, personal dream interpretations — not generic horoscopes.</p>
+      <p class="feature-desc">Personalised dream readings powered by Claude — not a generic dream dictionary. Every symbol, emotion, and theme decoded for your unique inner world.</p>
     </div>
     <div class="feature-card fade-up">
       <span class="feature-icon">🔮</span>
       <p class="feature-title">Pattern analysis</p>
-      <p class="feature-desc">Recurring symbols, emotional arcs, shifting tones — discovered across all your dreams.</p>
+      <p class="feature-desc">Recurring symbols, shifting emotional arcs, evolving tones — discovered and surfaced across your entire dream history.</p>
     </div>
     <div class="feature-card fade-up">
-      <span class="feature-icon">🔥</span>
-      <p class="feature-title">Streak &amp; realms</p>
-      <p class="feature-desc">Progress from Drifter to Archetype across 7 realms as you build your dream practice.</p>
+      <span class="feature-icon">🌟</span>
+      <p class="feature-title">Blueprint Says</p>
+      <p class="feature-desc">The feature no other app has. Somni reads your dream through the lens of your natal chart — connecting your nightly visions to your cosmic placements.</p>
     </div>
     <div class="feature-card fade-up">
       <span class="feature-icon">📅</span>
       <p class="feature-title">Dream calendar</p>
-      <p class="feature-desc">See your entire dreaming year at a glance. Every night, every mood, mapped.</p>
+      <p class="feature-desc">See your entire dreaming life at a glance. Every night, every mood, every symbol — mapped across time.</p>
     </div>
     <div class="feature-card fade-up">
-      <span class="feature-icon">📄</span>
-      <p class="feature-title">Blueprint PDF export</p>
-      <p class="feature-desc">Export your complete natal chart and dream journal as a beautiful PDF — a personal archive of your inner world.</p>
+      <span class="feature-icon">🏆</span>
+      <p class="feature-title">Realm Journey</p>
+      <p class="feature-desc">Progress from Drifter to Archetype across 7 realms as you build your dream practice. Streaks, shields, and milestones keep you coming back.</p>
     </div>
   </div>
 </section>
 
-<section class="quote-section fade-up">
-  <blockquote>Your dreams and your stars have always been speaking. Somni helps you finally listen.</blockquote>
+<div class="divider"><span class="divider-sym">✦</span></div>
+
+<!-- BLUEPRINT -->
+<section class="blueprint-section" id="blueprint">
+  <div class="blueprint-inner fade-up">
+    <div class="blueprint-header">
+      <span class="section-eyebrow">Celestial Blueprint</span>
+      <h2>Your complete <em>cosmic portrait</em></h2>
+      <p>More comprehensive than any other astrology app. Somni draws from both Western astrology and Jyotish — two complete traditions, one beautifully unified portrait.</p>
+    </div>
+    <div class="blueprint-cols">
+      <div class="blueprint-col">
+        <h3><span>Western Astrology</span>Tropical Zodiac · Placidus Houses</h3>
+        <ul class="blueprint-list">
+          <li>Full natal chart — Sun, Moon, Rising, all planets</li>
+          <li>Placidus houses and all major aspects</li>
+          <li>AI-generated sign readings for every placement</li>
+          <li>On-demand personalised planet tooltips</li>
+          <li>Daily transits personalised to your chart</li>
+          <li>6-domain daily forecast</li>
+        </ul>
+      </div>
+      <div class="blueprint-col">
+        <h3><span>Vedic Astrology — Jyotish</span>Sidereal · Lahiri Ayanamsa · Whole Sign</h3>
+        <ul class="blueprint-list">
+          <li>Full Vedic chart — Lagna, Rashi, all 9 Grahas</li>
+          <li>27 Nakshatras with Pada and ruling planet</li>
+          <li>Navamsa (D9) — your soul chart</li>
+          <li>Vimshottari Dasa — 120-year life timeline</li>
+          <li>Panchanga at birth — Tithi, Yoga, Karana, Sunrise</li>
+          <li>Traditional calendar — Saka, Kollam, Tamil year</li>
+          <li>Vedic Gochara daily transits</li>
+          <li>On-demand AI interpretation for every placement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="cta-section">
-  <div class="cta-inner fade-up">
-    <h2 class="cta-title">Start tonight</h2>
-    <p class="cta-sub">Free to download. Dreams interpreted and your cosmic blueprint awaits.</p>
+<!-- INTERSECTION -->
+<section class="intersection fade-up">
+  <span class="section-eyebrow">The difference</span>
+  <h2>Where dreams meet <em>destiny.</em></h2>
+  <p>Somni's Blueprint Says feature does something no other app can — it reads your dream through the lens of your natal chart. Your Scorpio Lagna. Your Saturn Dasa. Your Shravana Nakshatra.</p>
+  <p>The cosmos that shaped you is the same cosmos shaping your dreams tonight. This is the insight that changes everything.</p>
+  <span class="intersection-badge">Only on Somni</span>
+</section>
+
+<div class="divider"><span class="divider-sym">✦</span></div>
+
+<!-- PDF -->
+<section class="pdf-section fade-up">
+  <div class="pdf-card">
+    <span class="section-eyebrow">Blueprint PDF</span>
+    <h2>Your blueprint, <em>beautifully printed</em></h2>
+    <p>Export your complete Celestial Blueprint as a 14-page PDF — more detailed than most professional astrology reports. Generated in seconds.</p>
+    <div class="pdf-pages">
+      <span class="pdf-page-tag">Western Chart</span>
+      <span class="pdf-page-tag">Western Signs</span>
+      <span class="pdf-page-tag">Vedic Chart</span>
+      <span class="pdf-page-tag">Vedic Birth Details</span>
+      <span class="pdf-page-tag">Navamsa D9</span>
+      <span class="pdf-page-tag">Vimshottari Dasa</span>
+      <span class="pdf-page-tag">Vedic Signs</span>
+      <span class="pdf-page-tag">Daily Transits</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-sym">✦</span></div>
+
+<!-- PRO -->
+<section class="pro-section" id="pro">
+  <div class="pro-inner fade-up">
+    <span class="section-eyebrow">Somni Pro</span>
+    <h2>Unlock your complete <em>cosmic self</em></h2>
+    <p>Everything Somni offers, without limits. Full dream interpretation, complete astrology, and the features that make Somni truly unique.</p>
+
+    <table class="pro-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Free</th>
+          <th>Pro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Dreams per day</td><td class="dash">2</td><td class="check">Unlimited</td></tr>
+        <tr><td>AI dream interpretation</td><td class="check">✓</td><td class="check">✓ Opus (most powerful)</td></tr>
+        <tr><td>Western Big 3</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Full Western chart</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Vedic Big 3</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Full Vedic chart</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Navamsa D9 soul chart</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Vimshottari Dasa timeline</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Daily transits &amp; forecast</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Blueprint Says</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>14-page PDF export</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Pattern analysis</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Weekly dream summaries</td><td class="dash">—</td><td class="check">✓</td></tr>
+      </tbody>
+    </table>
+
+    <p class="pro-pricing">
+      <strong>Weekly</strong> · <strong>Monthly</strong> · <strong>Yearly</strong> · <strong>Lifetime</strong>
+      &nbsp;·&nbsp; Best value: Yearly
+    </p>
+
     <div class="store-row">
-      <a href="#" class="store-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <a href="https://apps.apple.com/app/id6764004239" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         <span class="btn-label"><span class="btn-top">Download on the</span><span class="btn-name">App Store</span></span>
       </a>
-      <a href="#" class="store-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>
+      <a href="https://play.google.com/store/apps/details?id=com.empirek76.somni" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>
         <span class="btn-label"><span class="btn-top">Get it on</span><span class="btn-name">Google Play</span></span>
       </a>
-      <a href="#" class="store-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.734 1.767-2.962 2.297-5.209 2.297-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.582l-3.065-.33c-.259-.056-.548-.266-.472-.66C5.977 2.412 8.807 1.5 11.35 1.5c1.3 0 2.998.346 4.025 1.329 1.3 1.214 1.175 2.832 1.175 4.595v4.165c0 1.252.519 1.8 1.007 2.476.173.24.21.527-.007.706l-2.406 2.024zm3.617 2.935C18.4 22.602 15.552 24 12.42 24 8.04 24 4.98 21.918 3 18.615l2.04-1.32C6.514 19.877 9.205 21.5 12.42 21.5c2.574 0 5.052-1.053 6.886-2.864l1.455 2.094z"/></svg>
-        <span class="btn-label"><span class="btn-top">Available at</span><span class="btn-name">Amazon Appstore</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust-section fade-up">
+  <h2>Built with <em>precision</em></h2>
+  <br>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <span class="trust-icon">🎯</span>
+      <p class="trust-title">JPL-Grade Accuracy</p>
+      <p class="trust-desc">Somni uses the same ephemeris algorithms trusted by astronomers — accurate to arcseconds for every planetary position in your chart.</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-icon">🔐</span>
+      <p class="trust-title">Truly Private</p>
+      <p class="trust-desc">Your dreams and birth data are yours alone. Encrypted, never sold, never shared. Your inner world stays yours.</p>
+    </div>
+    <div class="trust-card">
+      <span class="trust-icon">🌱</span>
+      <p class="trust-title">Always Improving</p>
+      <p class="trust-desc">Somni is actively developed. Every update makes the astrology deeper, the AI smarter, and the experience richer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section fade-up">
+  <blockquote>Your dreams have always been speaking. The stars have always known. Somni helps you finally listen to both.</blockquote>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="cta-inner fade-up">
+    <span class="cta-moon">🌙</span>
+    <h2>Your dreams are <em>waiting.</em></h2>
+    <p>Free to download. Start tonight.</p>
+    <div class="store-row">
+      <a href="https://apps.apple.com/app/id6764004239" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <span class="btn-label"><span class="btn-top">Download on the</span><span class="btn-name">App Store</span></span>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.empirek76.somni" class="store-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>
+        <span class="btn-label"><span class="btn-top">Get it on</span><span class="btn-name">Google Play</span></span>
       </a>
     </div>
+    <p class="cta-tagline">Drift in. Wake up knowing.</p>
   </div>
 </section>
 
 <footer>
+  <span class="footer-logo">🌙 Somni</span>
   <div class="footer-links">
     <a href="https://empirek76.github.io/somni-legal/privacy-policy/">Privacy Policy</a>
+    <a href="https://empirek76.github.io/somni-legal/terms/">Terms of Service</a>
     <a href="mailto:info@mysomni.app">Contact</a>
+    <a href="https://mysomni.app">mysomni.app</a>
   </div>
-  <p>© 2026 Srinivas Krishnan. All rights reserved. &nbsp;·&nbsp; mysomni.app</p>
+  <p class="footer-copy">© 2026 Empire K, Inc. All rights reserved.</p>
 </footer>
 
 <script>
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
+// Stars
+const canvas=document.getElementById('stars');
+const ctx=canvas.getContext('2d');
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resize();
 window.addEventListener('resize',resize);
 const stars=[];
-for(let i=0;i<120;i++){
+for(let i=0;i<140;i++){
   stars.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
-    r:Math.random()*1.5+0.3,
+    r:Math.random()*1.4+0.2,
     a:Math.random(),
-    da:(Math.random()*0.005+0.002)*(Math.random()<0.5?1:-1),
-    speed:Math.random()*0.15+0.05
+    da:(Math.random()*0.004+0.001)*(Math.random()<0.5?1:-1),
+    speed:Math.random()*0.12+0.03
   });
 }
 function draw(){
@@ -453,9 +916,10 @@ function draw(){
 }
 draw();
 
+// Scroll animations
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.15});
+},{threshold:0.12});
 document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
 </script>
 </body>
