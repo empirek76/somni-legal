@@ -603,7 +603,7 @@ var accessToken=search.get('access_token')||hashParams.get('access_token');
 var refreshToken=search.get('refresh_token')||hashParams.get('refresh_token');
 var type=search.get('type')||hashParams.get('type')||'signup';
 if(accessToken&&refreshToken){
-  window.location.href='somni://confirm#access_token='+accessToken+'&refresh_token='+refreshToken+'&type='+type;
+  window.location.href='/confirm#access_token='+accessToken+'&refresh_token='+refreshToken+'&type='+type;
 }else if(tokenHash){
   window.location.href='/confirm'+window.location.search+window.location.hash;
 }
