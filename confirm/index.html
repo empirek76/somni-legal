@@ -22,7 +22,7 @@
     h1 { font-size: 22px; font-weight: 300; letter-spacing: 6px; margin-bottom: 8px; }
     p { color: #7F77DD; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
     .btn {
-      background: #6B5FD4;
+      background: #6C5CE7;
       color: white;
       border: none;
       padding: 14px 32px;
@@ -32,21 +32,69 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
+      width: 100%;
+      max-width: 320px;
+      box-sizing: border-box;
     }
     .sub { color: #534AB7; font-size: 12px; margin-top: 16px; }
+    #error-view { display: none; }
+    #error-heading { font-size: 22px; font-weight: 600; letter-spacing: 1px; margin-bottom: 12px; color: #EEEDFE; }
+    #error-message { max-width: 320px; }
   </style>
 </head>
 <body>
-  <div class="moon">🌙</div>
-  <h1>SOMNI</h1>
-  <p>Your email is confirmed.<br>Tap below to open Somni.</p>
-  <a class="btn" id="open-btn" href="#">Open Somni</a>
-  <p class="sub">If the app doesn't open, make sure<br>Somni is installed on your device.</p>
+  <!-- Normal confirmation UI -->
+  <div id="confirm-view">
+    <div class="moon">🌙</div>
+    <h1>SOMNI</h1>
+    <p>Your email is confirmed.<br>Tap below to open Somni.</p>
+    <a class="btn" id="open-btn" href="#">Open Somni</a>
+    <p class="sub">If the app doesn't open, make sure<br>Somni is installed on your device.</p>
+  </div>
+
+  <!-- Error UI (shown only when hash contains error=...) -->
+  <div id="error-view">
+    <div class="moon">✦</div>
+    <p id="error-heading"></p>
+    <p id="error-message"></p>
+    <a class="btn" id="error-btn" href="somni://confirm">Return to Somni</a>
+    <p class="sub">Can't open the app? Search for Somni on the<br>App Store or Google Play.</p>
+  </div>
+
   <script>
-    var hash = window.location.hash;
-    var deepLink = 'somni://confirm' + hash;
-    document.getElementById('open-btn').href = deepLink;
-    window.location.href = deepLink;
+    // Parse hash fragment into key-value pairs
+    var hash = window.location.hash.replace(/^#/, '');
+    var params = {};
+    hash.split('&').forEach(function(part) {
+      var kv = part.split('=');
+      if (kv.length === 2) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+    });
+
+    if (params.error) {
+      // Hide normal content, show error UI
+      document.getElementById('confirm-view').style.display = 'none';
+      document.getElementById('error-view').style.display = 'block';
+
+      var heading = document.getElementById('error-heading');
+      var message = document.getElementById('error-message');
+      var errorCode = params.error;
+
+      if (errorCode === 'otp_expired') {
+        heading.textContent = 'Link Expired';
+        message.textContent = 'Your confirmation link has expired — links are only valid for 1 hour. Return to Somni and tap ‘Resend confirmation email’ to get a fresh link.';
+      } else if (errorCode === 'access_denied') {
+        heading.textContent = 'Confirmation Failed';
+        message.textContent = 'This confirmation link has already been used or is no longer valid. If your account is not yet confirmed, return to Somni and request a new link.';
+      } else {
+        heading.textContent = 'Confirmation Failed';
+        message.textContent = 'Something went wrong with your confirmation link. Please return to Somni and try again.';
+      }
+    } else {
+      // No error — normal bridge flow
+      var deepLink = 'somni://confirm#' + hash;
+      document.getElementById('open-btn').href = deepLink;
+      window.location.href = deepLink;
+    }
   </script>
 </body>
 </html>
