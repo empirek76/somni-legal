@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your friend invited you to Somni</title>
+<meta name="description" content="A friend invited you to Somni: AI dream interpretation meets your cosmic blueprint across six traditions. Get the app and use their code.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Somni">
+<meta property="og:title" content="Your friend invited you to Somni">
+<meta property="og:description" content="Dream interpretation meets your cosmic blueprint. Join Somni with your friend's invite.">
+<meta property="og:url" content="https://mysomni.app/r/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Your friend invited you to Somni">
+<meta name="twitter:description" content="Dream interpretation meets your cosmic blueprint. Join Somni with your friend's invite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --ink:#080614;
+  --ink2:#110E24;
+  --violet:#7B5CF0;
+  --violet-light:#A78BFA;
+  --violet-dim:rgba(123,92,240,0.15);
+  --gold:#C9A84C;
+  --white:#FFFFFF;
+  --muted:rgba(255,255,255,0.5);
+  --card:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);
+  --border-violet:rgba(123,92,240,0.25);
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:radial-gradient(ellipse at 50% 0%,rgba(123,92,240,0.22),transparent 60%),var(--ink);
+  color:var(--white);
+  line-height:1.6;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+}
+
+.wrap{width:100%;max-width:420px;text-align:center}
+
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  margin-bottom:2rem;
+}
+
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.3rem;font-weight:300;line-height:1.15;
+  margin-bottom:0.75rem;
+}
+h1 em{font-style:italic;color:var(--violet-light)}
+
+.sub{font-size:0.95rem;font-weight:300;color:var(--muted);margin-bottom:1.75rem}
+
+.code-card{
+  border:1px solid var(--border-violet);
+  background:var(--violet-dim);
+  border-radius:20px;
+  padding:1.25rem 1rem 1.1rem;
+  margin-bottom:1.25rem;
+}
+.code-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+.code{
+  font-family:'DM Sans',sans-serif;
+  font-size:2.1rem;font-weight:500;letter-spacing:0.18em;
+  color:var(--gold);
+  margin:0.35rem 0 0.6rem;
+  word-break:break-all;
+  user-select:all;
+}
+.code.small{font-size:1.4rem;letter-spacing:0.14em;margin-bottom:0}
+
+.note{font-size:0.85rem;color:var(--muted);margin-top:0.6rem}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:0.65rem;
+  padding:0.85rem 1.6rem;
+  border-radius:100px;
+  font-family:inherit;font-size:0.9rem;font-weight:500;
+  text-decoration:none;cursor:pointer;
+  transition:all 0.25s;
+  border:1px solid var(--border-violet);
+  background:var(--violet-dim);
+  color:var(--white);
+  letter-spacing:0.02em;
+}
+.btn:hover{background:rgba(123,92,240,0.3);border-color:var(--violet);transform:translateY(-2px);box-shadow:0 8px 32px rgba(123,92,240,0.2)}
+.btn:focus-visible{outline:2px solid var(--violet-light);outline-offset:3px}
+.btn.primary{background:var(--violet);border-color:var(--violet)}
+.btn.primary:hover{background:#6B4FD8}
+.btn.block{display:flex;width:100%}
+.btn svg{width:18px;height:18px;flex-shrink:0;opacity:0.9}
+.btn .btn-label{display:flex;flex-direction:column;text-align:left}
+.btn .btn-top{font-size:0.62rem;font-weight:300;opacity:0.65;letter-spacing:0.06em}
+.btn .btn-name{font-size:0.88rem;font-weight:500;line-height:1.2}
+
+.stack{display:flex;flex-direction:column;gap:0.75rem;align-items:stretch}
+.copy-btn{padding:0.6rem 1.4rem;font-size:0.82rem}
+
+.open-row{margin-top:1.75rem;font-size:0.85rem;color:var(--muted)}
+.open-row a{color:var(--violet-light);text-decoration:none;font-weight:500}
+.open-row a:hover{text-decoration:underline}
+
+[hidden]{display:none !important}
+
+@media(max-width:480px){
+  h1{font-size:2rem}
+  .code{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="logo" href="/">🌙 Somni</a>
+
+  <!-- Valid code -->
+  <section id="view-valid" hidden>
+    <h1>Your friend invited you to <em>Somni</em></h1>
+    <p class="sub">Dream interpretation meets your cosmic blueprint across six traditions.</p>
+
+    <div class="code-card" id="code-card">
+      <div class="code-label">Your friend's code</div>
+      <div class="code" id="code" translate="no"></div>
+      <button type="button" class="btn copy-btn" id="copy-btn" hidden>Copy code</button>
+    </div>
+    <p class="note" id="paste-note" hidden>Paste this code when you sign up.</p>
+
+    <div class="stack" id="stores" style="margin-top:1.25rem"></div>
+    <p class="note" id="android-note" hidden>Your friend's code, <span id="android-code" translate="no"></span>, is applied automatically.</p>
+
+    <p class="open-row">Already have Somni? <a id="open-app" href="#">Open it</a></p>
+  </section>
+
+  <!-- Missing / invalid code -->
+  <section id="view-invalid" hidden>
+    <h1>This link doesn't have a valid code</h1>
+    <p class="sub">You can still get Somni and explore your dreams and your cosmic blueprint.</p>
+    <div class="stack" id="stores-invalid"></div>
+  </section>
+
+  <noscript>
+    <h1>Get <em>Somni</em></h1>
+    <p class="sub">Turn on JavaScript to see your friend's code, or download the app below.</p>
+    <div class="stack">
+      <a class="btn block" href="https://apps.apple.com/app/id6764004239">App Store</a>
+      <a class="btn block" href="https://play.google.com/store/apps/details?id=com.empirek76.somni">Google Play</a>
+    </div>
+  </noscript>
+</main>
+
+<script>
+(function () {
+  var IOS_URL = 'https://apps.apple.com/app/id6764004239';
+  var PLAY_BASE = 'https://play.google.com/store/apps/details?id=com.empirek76.somni';
+  var APPLE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>';
+  var PLAY_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.99.14l13.5-7.79-2.96-2.96-11.53 10.61zm-1.67-20.1C1.2 4 1 4.58 1 5.28v13.44c0 .7.2 1.28.51 1.62l.09.08 7.53-7.53v-.18L1.51 3.58l-.0.08zm18.1 9.04l-2.14-1.23-3.35 3.35 3.35 3.35 2.16-1.25c.62-.36.62-.94 0-1.3l-.02.08zM4.17.24L17.67 8.03l-2.96 2.96L3.18.39c.3-.17.65-.22.99-.15z"/></svg>';
+
+  // Code: ?c=CODE, falling back to #CODE. Uppercased and validated; nothing else is trusted.
+  function readCode() {
+    var raw = null;
+    try { raw = new URLSearchParams(window.location.search).get('c'); } catch (e) {}
+    if (!raw) raw = decodeURIComponent((window.location.hash || '').replace(/^#/, '').replace(/%(?![0-9A-Fa-f]{2})/g, '%25'));
+    var code = (raw || '').trim().toUpperCase();
+    return /^[A-Z0-9]{4,12}$/.test(code) ? code : null;
+  }
+
+  var ua = navigator.userAgent || '';
+  var isAndroid = /Android/i.test(ua);
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+
+  function playUrl(code) {
+    if (!code) return PLAY_BASE;
+    return PLAY_BASE + '&referrer=' + encodeURIComponent('somni_ref=' + code + '&utm_source=referral');
+  }
+
+  function storeButton(href, svg, top, name, primary) {
+    var a = document.createElement('a');
+    a.className = 'btn block' + (primary ? ' primary' : '');
+    a.href = href;
+    a.innerHTML = svg + '<span class="btn-label"><span class="btn-top">' + top + '</span><span class="btn-name">' + name + '</span></span>';
+    return a;
+  }
+  function appStore(primary) { return storeButton(IOS_URL, APPLE_SVG, 'Download on the', 'App Store', primary); }
+  function googlePlay(code, primary, label) {
+    var a = storeButton(playUrl(code), PLAY_SVG, label ? '' : 'Get it on', label || 'Google Play', primary);
+    if (label) a.querySelector('.btn-top').remove();
+    return a;
+  }
+
+  function copyText(text, done) {
+    function fallback() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        done(ok);
+      } catch (e) { done(false); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+    } else { fallback(); }
+  }
+
+  var code = readCode();
+  var el = function (id) { return document.getElementById(id); };
+
+  if (!code) {
+    el('view-invalid').hidden = false;
+    var box = el('stores-invalid');
+    if (isAndroid) { box.appendChild(googlePlay(null, true, 'Get Somni on Google Play')); }
+    else if (isIOS) { box.appendChild(appStore(true)); }
+    else { box.appendChild(appStore(false)); box.appendChild(googlePlay(null, false)); }
+    return;
+  }
+
+  el('view-valid').hidden = false;
+  el('code').textContent = code;
+  var stores = el('stores');
+
+  if (isAndroid) {
+    // The code travels in the Play install referrer; the app applies it automatically.
+    el('code-card').hidden = true;
+    stores.style.marginTop = '0';
+    stores.appendChild(googlePlay(code, true, 'Get Somni on Google Play'));
+    el('android-code').textContent = code;
+    el('android-note').hidden = false;
+  } else {
+    var btn = el('copy-btn');
+    btn.hidden = false;
+    el('paste-note').hidden = false;
+    btn.addEventListener('click', function () {
+      copyText(code, function (ok) {
+        btn.textContent = ok ? 'Copied ✓' : 'Press and hold the code to copy';
+        setTimeout(function () { btn.textContent = 'Copy code'; }, 2500);
+      });
+    });
+    if (isIOS) { stores.appendChild(appStore(true)); }
+    else { stores.appendChild(appStore(false)); stores.appendChild(googlePlay(code, false)); }
+  }
+
+  // Same format the app's deep-link handler parses: somni://refer?code=CODE
+  el('open-app').href = 'somni://refer?code=' + encodeURIComponent(code);
+})();
+</script>
+</body>
+</html>
