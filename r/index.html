@@ -137,7 +137,7 @@ h1 em{font-style:italic;color:var(--violet-light)}
     <p class="note" id="paste-note" hidden>Paste this code when you sign up.</p>
 
     <div class="stack" id="stores" style="margin-top:1.25rem"></div>
-    <p class="note" id="android-note" hidden>Your friend's code, <span id="android-code" translate="no"></span>, is applied automatically.</p>
+    <p class="note" id="android-note" hidden>This is usually filled in for you. If it isn't, enter it when you sign up.</p>
 
     <p class="open-row">Already have Somni? <a id="open-app" href="#">Open it</a></p>
   </section>
@@ -231,23 +231,21 @@ h1 em{font-style:italic;color:var(--violet-light)}
   el('code').textContent = code;
   var stores = el('stores');
 
+  var btn = el('copy-btn');
+  btn.hidden = false;
+  btn.addEventListener('click', function () {
+    copyText(code, function (ok) {
+      btn.textContent = ok ? 'Copied ✓' : 'Press and hold the code to copy';
+      setTimeout(function () { btn.textContent = 'Copy code'; }, 2500);
+    });
+  });
+
   if (isAndroid) {
-    // The code travels in the Play install referrer; the app applies it automatically.
-    el('code-card').hidden = true;
-    stores.style.marginTop = '0';
+    // The code also travels in the Play install referrer; the app fills it in when it can.
     stores.appendChild(googlePlay(code, true, 'Get Somni on Google Play'));
-    el('android-code').textContent = code;
     el('android-note').hidden = false;
   } else {
-    var btn = el('copy-btn');
-    btn.hidden = false;
     el('paste-note').hidden = false;
-    btn.addEventListener('click', function () {
-      copyText(code, function (ok) {
-        btn.textContent = ok ? 'Copied ✓' : 'Press and hold the code to copy';
-        setTimeout(function () { btn.textContent = 'Copy code'; }, 2500);
-      });
-    });
     if (isIOS) { stores.appendChild(appStore(true)); }
     else { stores.appendChild(appStore(false)); stores.appendChild(googlePlay(code, false)); }
   }
