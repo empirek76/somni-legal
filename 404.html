@@ -33,8 +33,8 @@ a.btn:focus-visible{outline:2px solid var(--violet-light);outline-offset:3px}
 </main>
 <script>
   // Share links look like /r/<CODE>; the r/ page itself reads ?c=CODE.
-  var m = /^\/r\/([A-Za-z0-9]+)\/?$/i.exec(window.location.pathname);
-  if (m) window.location.replace('/r/?c=' + m[1].toUpperCase());
+  var m = /^\/r\/([A-Za-z0-9_-]+)\/?$/.exec(window.location.pathname);
+  if (m) location.replace('/r/?c=' + m[1]);
 </script>
 </body>
 </html>
