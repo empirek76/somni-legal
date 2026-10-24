@@ -142,7 +142,8 @@
       table { font-size: 12px; }
       td, th { padding: 8px 10px; }
     }
-  </style>
+  mark{background:#5b3a00;color:#ffd27a;padding:0 3px;border-radius:3px;}
+</style>
 </head>
 <body>
   <div class="container">
@@ -152,6 +153,8 @@
       <h1>Privacy Policy</h1>
       <p class="last-updated">Last updated: October 23, 2026</p>
     </div>
+
+    <p style="border:1px solid var(--border);background:var(--card);border-radius:10px;padding:14px 16px;font-size:0.92em;"><strong>Notis Privasi Ringkas (Bahasa Malaysia).</strong> Somni dikendalikan oleh Srinivas Krishnan, seorang individu di Kuala Lumpur, Malaysia. Kami memproses data peribadi anda (termasuk akaun, tarikh lahir, catatan mimpi, data penggunaan dan, jika dibenarkan, pengecam pengiklanan) untuk menyediakan aplikasi Somni, tafsiran AI, langganan, analitik dan pengukuran iklan. Catatan mimpi boleh mengandungi data peribadi sensitif dan hanya diproses dengan persetujuan anda. Data anda dikongsi dengan pembekal perkhidmatan kami (termasuk Supabase, Anthropic, OpenAI, RevenueCat, Expo, Resend, PostHog, Sentry dan Meta) dan mungkin dipindahkan ke luar Malaysia mengikut Akta Perlindungan Data Peribadi 2010. Pemberian data asas akaun adalah wajib untuk menggunakan akaun; tanpanya, anda hanya boleh menggunakan Mod Tetamu. Anda berhak meminta akses, pembetulan, pemindahan data dan pemadaman, menarik balik persetujuan, serta mengehadkan pemprosesan. Hubungi Pegawai Perlindungan Data kami di <a href="mailto:info@mysomni.app">info@mysomni.app</a>. Notis penuh dalam Bahasa Inggeris di bawah; versi penuh Bahasa Malaysia akan disediakan tidak lama lagi. Jika terdapat percanggahan, versi Bahasa Inggeris terpakai setakat yang dibenarkan oleh undang-undang.</p>
 
     <p>
       Welcome to Somni, a dream journaling and AI interpretation app developed and operated by Srinivas Krishnan,
@@ -186,6 +189,9 @@
       <li>The date and time each dream is logged</li>
     </ul>
 
+    <p><strong>Sensitive information</strong></p>
+    <p>Dreams can reveal things about your health, mental or emotional state, religious beliefs, sex life or other sensitive matters. You decide what to write. From app version 1.6.17, we ask for your explicit consent with a tick-box before your first interpretation. In earlier versions, by recording a dream and requesting an interpretation, you explicitly consent to us processing that content, including sending it to our AI providers, for the sole purpose of providing Somni's features. You can withdraw this consent at any time by deleting the entry or your account.</p>
+
     <p><strong>Usage and Progress Data</strong></p>
     <ul>
       <li>Streak counts, experience points (XP), and realm level</li>
@@ -211,7 +217,7 @@
     <ul>
       <li>Device type, operating system and app version, and crash and error reports (collected by Sentry)</li>
       <li>App usage events, such as screens opened and features used, plus your approximate location (country and city) derived from your IP address (collected by PostHog for analytics)</li>
-      <li>Advertising identifier and a limited set of app events (install, app open, sign-up, trial start and purchase), collected by the Meta (Facebook) SDK to measure our advertising. On iPhone, the advertising identifier is only collected if you allow tracking when the app asks; on Android, it is your device's advertising ID, which you can reset or delete in your device settings</li>
+      <li>Advertising identifier and a limited set of app events (install, app open, sign-up and purchase), collected by the Meta (Facebook) SDK to measure our advertising. On iPhone, the advertising identifier is only collected if you allow tracking when the app asks; on Android, it is your device's advertising ID, which you can reset or delete in your device settings</li>
       <li>Push notification token (used to deliver the notifications you have opted into)</li>
     </ul>
 
@@ -229,12 +235,12 @@
         <tr>
           <td>Provide core journaling and AI interpretation features</td>
           <td>Dream text, account ID</td>
-          <td>Performance of contract</td>
+          <td>Performance of contract and your explicit consent (for sensitive content)</td>
         </tr>
         <tr>
           <td>Generate AI-powered dream interpretations and pattern analysis</td>
           <td>Dream text, emotion history</td>
-          <td>Performance of contract</td>
+          <td>Performance of contract and your explicit consent (for sensitive content)</td>
         </tr>
         <tr>
           <td>Transcribe voice-recorded dream descriptions</td>
@@ -274,17 +280,17 @@
         <tr>
           <td>Measure which of our ads lead to installs, sign-ups and purchases</td>
           <td>Advertising identifier and limited app events (Meta SDK)</td>
-          <td>Consent on iPhone (Apple's tracking prompt); legitimate interests elsewhere, with opt-out through your device's ad settings</td>
+          <td>On iPhone: consent, through Apple's tracking prompt. On Android: in app versions before 1.6.17, the SDK runs without an in-app choice, and you can stop it by deleting or resetting your advertising ID in your device settings. From version 1.6.17, the SDK only runs on Android if you agree in the app, and it is off until you do.</td>
         </tr>
         <tr>
           <td>Send occasional news about new features and offers by push ("Tips &amp; offers")</td>
-          <td>Push notification token, your setting, your region</td>
+          <td>Push notification token, your setting, your approximate country</td>
           <td>Consent: off by default in the UK, EU/EEA and Switzerland; you can switch it off at any time in Profile → Notifications</td>
         </tr>
       </tbody>
     </table>
 
-    <p>We do <strong>not</strong> use your dream content to train AI models, and we do <strong>not</strong> sell your personal data. Your dream entries, birth details and readings are <strong>never</strong> shared with advertisers. The only data shared for advertising purposes is the limited advertising identifier and app-event data described under Meta in Section 3.</p>
+    <p>We do <strong>not</strong> use your dream content to train AI models, and we do <strong>not</strong> sell your personal data for money. Because Somni uses the Meta SDK, sharing your advertising identifier and app events with Meta to measure ads may count as "sharing" or "targeted advertising" under some US state privacy laws. You can stop it at any time using the advertising opt-out in Section 7. Your dream entries, birth details and readings are <strong>never</strong> shared with advertisers. The only data shared for advertising purposes is the limited advertising identifier and app-event data described under Meta in Section 3.</p>
 
     <h2>3. Third-Party Services</h2>
 
@@ -294,15 +300,15 @@
       <br><a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a>
     </p>
 
-    <p><strong>Anthropic (Claude AI)</strong> — Powers the AI dream interpretation, pattern analysis, mood guide, and in-app chat features. When you request an interpretation or chat with an AI guide, the text of your dream or chat message is sent to Anthropic's API. Anthropic does not use API data to train their models by default.
+    <p><strong>Anthropic (Claude AI)</strong> — Powers the AI dream interpretation, pattern analysis, mood guide, and in-app chat features. When you request an interpretation or chat with an AI guide, the text of your dream or chat message is sent to Anthropic's API. Under its API terms, Anthropic does not use this data to train its models, and may keep it for a limited period for safety and abuse monitoring (see Section 5).
       <br><a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">anthropic.com/privacy</a>
     </p>
 
-    <p><strong>OpenAI (Whisper)</strong> — Powers voice-to-text transcription when you record a dream using your microphone. Your audio is sent to OpenAI's Whisper API for transcription and is not stored after the transcription is returned.
+    <p><strong>OpenAI</strong> — Powers voice-to-text transcription when you record a dream using your microphone, and generates Dream Art and Cosmic Art images. For transcription, your audio is sent to OpenAI's API and the text is returned to Somni; we do not store the recording. When you create an image, a short text prompt based on your dream or daily reading (written by Anthropic's Claude) is sent to OpenAI's image API. Under its API terms, OpenAI does not use this data to train its models, and may keep it for a limited period for safety and abuse monitoring (see Section 5).
       <br><a href="https://openai.com/privacy" target="_blank" rel="noopener">openai.com/privacy</a>
     </p>
 
-    <p><strong>RevenueCat</strong> — Manages in-app purchase entitlements and subscription status for Somni Pro. RevenueCat receives your App Store receipt and assigns you an anonymous subscriber ID.
+    <p><strong>RevenueCat</strong> — Manages in-app purchase entitlements and subscription status for Somni Pro. RevenueCat receives your App Store or Google Play purchase details (receipt or purchase token, product, price and transaction dates) and your Somni account ID, so it can confirm which purchases are active on your account.
       <br><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">revenuecat.com/privacy</a>
     </p>
 
@@ -314,7 +320,7 @@
       <br><a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">resend.com/legal/privacy-policy</a>
     </p>
 
-    <p><strong>Meta (Facebook SDK)</strong> — Measures our advertising on Facebook and Instagram. The SDK sends Meta your device's advertising identifier (on iPhone, only if you allow tracking) and a limited set of app events: install, app open, sign-up, trial start and purchase. It does not send your dreams, readings, birth details, name or email. You can stop this on iPhone in Settings → Privacy &amp; Security → Tracking, and on Android by resetting or deleting your advertising ID in your device settings.
+    <p><strong>Meta (Facebook SDK)</strong> — Measures our advertising on Facebook and Instagram. The SDK sends Meta your device's advertising identifier (on iPhone, only if you allow tracking) and a limited set of app events: install, app open, sign-up and purchase. It does not send your dreams, readings, birth details, name or email. You can stop this on iPhone in Settings → Privacy &amp; Security → Tracking, and on Android by resetting or deleting your advertising ID in your device settings.
       <br><a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">facebook.com/privacy/policy</a>
     </p>
 
@@ -354,8 +360,7 @@
       bcrypt hashing.
     </p>
     <p>
-      Dream content sent to Anthropic or OpenAI for AI processing is transmitted over HTTPS and is not
-      retained by those services beyond the immediate API response (subject to their respective retention policies).
+      Dream content sent to Anthropic or OpenAI for AI processing is transmitted over HTTPS. Under their API terms, these providers do not use it to train their models. Under their published API data policies, they may keep it for up to 30 days for safety and abuse monitoring, and then delete it. They may keep it longer where required by law or where content is flagged as violating their usage policies (Anthropic: up to 2 years for flagged content). We do not have a zero-data-retention arrangement with either provider.
     </p>
 
     <h2>6. Data Retention</h2>
@@ -375,24 +380,22 @@
     <ul>
       <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
       <li><strong>Correction:</strong> Update or correct inaccurate information via your in-app profile settings.</li>
-      <li><strong>Deletion:</strong> Request deletion of your account and all associated data by contacting us at <a href="mailto:info@mysomni.app">info@mysomni.app</a>.</li>
-      <li><strong>Portability:</strong> Export your dream journal as a PDF at any time from the Tools section of the app (Somni Pro feature).</li>
+      <li><strong>Deletion:</strong> Delete your account and all associated data at any time in the app (Profile → Delete Account, at the bottom of the Profile screen), or by emailing <a href="mailto:info@mysomni.app">info@mysomni.app</a>. You can also request deletion without the app at <a href="https://mysomni.app/delete-account/">mysomni.app/delete-account</a>. Deleting your account does not cancel an App Store or Google Play subscription, so please cancel that separately.</li>
+      <li><strong>Portability:</strong> Pro members can export their dream journal as a PDF from the Tools section. Anyone, free or Pro, can request a copy of their data in a machine-readable format by emailing <a href="mailto:info@mysomni.app">info@mysomni.app</a>.</li>
       <li><strong>Notification opt-out:</strong> Disable push notifications at any time in the app's notification settings or in your device's system settings.</li>
-      <li><strong>Advertising opt-out:</strong> On iPhone, choose "Ask App Not to Track" or turn tracking off in Settings → Privacy &amp; Security → Tracking. On Android, reset or delete your advertising ID in your device settings.</li>
-      <li><strong>Analytics:</strong> Contact us at <a href="mailto:info@mysomni.app">info@mysomni.app</a> to object to analytics processing or to request deletion of your analytics data.</li>
-      <li><strong>Withdraw consent:</strong> Stop using the app and request account deletion to withdraw consent for data processing.</li>
+      <li><strong>Advertising opt-out:</strong> On iPhone, choose "Ask App Not to Track" or turn tracking off in Settings → Privacy &amp; Security → Tracking. On Android, reset or delete your advertising ID in your device settings; from version 1.6.17 you can also turn advertising measurement on or off in the app at Profile → Privacy → Ad measurement.</li>
+      <li><strong>Analytics:</strong> Contact us at <a href="mailto:info@mysomni.app">info@mysomni.app</a> to object to analytics processing or to request deletion of your analytics data. There is currently no in-app switch for analytics. We also use your approximate country (worked out from your device time zone and, where we have it, a country derived from your IP address) to apply privacy defaults, such as switching "Tips &amp; offers" off by default in the UK, EU/EEA and Switzerland. If you have opted in to "Tips &amp; offers", we also use it to choose which offers are relevant to your region. This can be inaccurate, for example if you use a VPN. Where any signal suggests you may be in one of those regions, we apply the stricter setting.</li>
+      <li><strong>Withdraw consent:</strong> You can withdraw consent for any consent-based processing at any time: notifications and "Tips &amp; offers" in Profile → Notifications, tracking in your device settings, and sensitive dream content by deleting entries or your account. Withdrawal does not affect processing already carried out.</li>
     </ul>
 
     <p>
-      For requests related to EU/EEA or UK data subject rights under GDPR or UK GDPR, or California consumer
-      rights under CCPA, please contact us at <a href="mailto:info@mysomni.app">info@mysomni.app</a>.
-      We will respond within 30 days.
+      For requests related to EU/EEA or UK data subject rights under GDPR or UK GDPR, or rights under US state privacy laws (including the right to opt out of "sharing" or targeted advertising, which you can exercise through the advertising opt-out above or by emailing us), please contact us at <a href="mailto:info@mysomni.app">info@mysomni.app</a>. We will respond within 21 days for PDPA requests and within one month for other requests, which may be extended where the law allows.
     </p>
 
     <h2>8. Children's Privacy</h2>
 
     <p>
-      Somni is not directed at children under the age of 13 (or 16 in the EU/EEA). We collect date of
+      Somni is not directed at children. You must be at least 13 to use Somni, or the minimum age for digital consent in your country if higher (up to 16 in parts of the EU/EEA). Users under 18 need a parent's or guardian's permission, and a parent or guardian must make any purchase. We collect date of
       birth at signup specifically to enforce this age requirement, and we do not knowingly collect other
       personal information from children under these ages. If you believe a child has provided us
       with personal information, please contact us immediately at <a href="mailto:info@mysomni.app">info@mysomni.app</a>
@@ -416,7 +419,7 @@
     <h2>10. Subscriptions (Somni Pro)</h2>
 
     <p>
-      Somni Pro is an auto-renewing subscription available through the Apple App Store and Google Play.
+      Somni Pro is available as an auto-renewing weekly, monthly or yearly subscription, or as a one-time lifetime purchase where offered, through the Apple App Store and Google Play.
       Subscription purchases and renewals are processed by Apple or Google; we receive only confirmation
       of your entitlement status via RevenueCat. We do not process, store, or have access to your payment
       card information.
@@ -432,33 +435,34 @@
     <p>
       Somni is operated from Malaysia. If you are located outside Malaysia, your information may be
       transferred to, stored, and processed in Malaysia, the United States, and other countries where our
-      third-party service providers (Supabase/AWS, Anthropic, OpenAI, RevenueCat, Expo, Resend, Meta, PostHog, Sentry) operate. By using
-      the App, you consent to such transfers.
+      third-party service providers (Supabase/AWS, Anthropic, OpenAI, RevenueCat, Expo, Resend, Meta, PostHog, Sentry) operate. We transfer data outside Malaysia only where permitted by the Personal Data Protection Act 2010. This means the destination has laws substantially similar to the PDPA, or the transfer is protected by contractual or other safeguards that give an adequate level of protection, or another ground in section 129 applies. For users in the UK, EU/EEA and Switzerland, we rely on the providers' Standard Contractual Clauses or adequacy decisions (including the EU-US Data Privacy Framework where the provider is certified).
     </p>
-    <p>
-      Where required by applicable law (e.g., GDPR), we rely on standard contractual clauses or other
-      appropriate transfer mechanisms to protect your data when it is transferred internationally.
-    </p>
+    
 
-    <h2>12. Changes to This Privacy Policy</h2>
+    <h2>12. Malaysian Law and Your PDPA Rights</h2>
+
+    <p>We process personal data in accordance with Malaysia's Personal Data Protection Act 2010 (as amended in 2024). Under it, you may: access your personal data and request corrections; withdraw consent and ask us to stop processing; and ask us to transmit your personal data to another data controller (data portability). We will respond to access and correction requests within 21 days. If a personal data breach occurs, we will notify the Personal Data Protection Commissioner within 72 hours, as the law requires. If the breach is likely to cause you significant harm, we will also notify you without unnecessary delay, and within 7 days of notifying the Commissioner. Our Data Protection Officer is Srinivas Krishnan, who can be reached at <a href="mailto:info@mysomni.app">info@mysomni.app</a>. This Privacy Policy is governed by the laws of Malaysia. You may also complain to the Personal Data Protection Commissioner, or, in the UK/EU, to your local data protection authority.</p>
+
+    <h2>13. Changes to This Privacy Policy</h2>
 
     <p>
       We may update this Privacy Policy from time to time to reflect changes in our practices or applicable
       law. When we make material changes, we will update the "Last updated" date at the top of this page
-      and, where appropriate, notify you within the app. Your continued use of Somni after any changes
-      constitutes your acceptance of the updated policy.
+      and, where appropriate, notify you within the app. Where a change requires your consent under applicable law, we will ask for it. Otherwise, the updated policy applies from the date shown above.
     </p>
     <p>
       We encourage you to review this policy periodically.
     </p>
 
-    <h2>13. Contact Us</h2>
+    <h2>14. Contact Us</h2>
+
+    <p>Somni is operated by Srinivas Krishnan, an individual in Malaysia (the "data controller"). If we transfer Somni to a company in the future, we will update this policy and notify you in the app before that happens.</p>
 
     <p>If you have any questions, concerns, or requests regarding this Privacy Policy or the way we handle your data, please contact us:</p>
 
     <div class="contact-card">
       <strong>Somni — Srinivas Krishnan</strong><br>
-      Address: 153-7-2 Menara Duta, Jalan Dutamasraya, 51200 Kuala Lumpur, Malaysia<br>
+      Address: Kuala Lumpur, Malaysia (full postal address available on request at <a href="mailto:info@mysomni.app">info@mysomni.app</a>)<br>
       Email: <a href="mailto:info@mysomni.app">info@mysomni.app</a><br>
       Website: <a href="https://mysomni.app/" target="_blank" rel="noopener">mysomni.app</a>
     </div>
