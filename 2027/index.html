@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your 2027, read in the stars · Somni</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="See what 2027 holds for your sign. Your full year, month by month, in Somni.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0a1f; --bg2:#17123a; --card:#1d1745; --line:#2e2766;
+    --text:#f2effb; --muted:#b7b0d6; --soft:#8a83b3;
+    --accent:#8b6cff; --accent2:#5b3fd6; --gold:#e9c46a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--text); background:var(--bg);
+    background-image:
+      radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),
+      radial-gradient(1px 1px at 72% 9%,#fff6 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 85% 32%,#fff9 50%,transparent 51%),
+      radial-gradient(1px 1px at 30% 62%,#fff5 50%,transparent 51%),
+      radial-gradient(1px 1px at 58% 78%,#fff6 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 8% 88%,#fff7 50%,transparent 51%),
+      radial-gradient(900px 500px at 50% -10%,#3a2a8a55,transparent 70%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:480px;margin:0 auto;min-height:100%;padding:20px 20px 32px;display:flex;flex-direction:column}
+  header{display:flex;align-items:center;justify-content:space-between;height:40px;margin-bottom:8px}
+  .brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;letter-spacing:.5px}
+  .back{background:none;border:0;color:var(--muted);font:inherit;font-size:15px;cursor:pointer;padding:8px 0;visibility:hidden}
+  .back.show{visibility:visible}
+  .bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:28px}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .35s ease}
+  .step{display:none;flex:1;flex-direction:column;animation:fade .35s ease}
+  .step.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
+  h1{font-size:44px;margin-bottom:18px}
+  h2{font-size:34px;margin-bottom:12px}
+  .kicker{color:var(--gold);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+  p{font-size:17px;line-height:1.6;color:var(--muted)}
+  p + p{margin-top:14px}
+  .orb{width:132px;height:132px;border-radius:50%;margin:8px auto 28px;
+    background:radial-gradient(circle at 35% 30%,#fff6 0,#c7b8ff 18%,#7a5cff 45%,#2a1e6e 75%);
+    box-shadow:0 0 60px #7a5cff66,0 0 120px #5b3fd633}
+  .spacer{flex:1;min-height:24px}
+  .btn{display:block;width:100%;border:0;border-radius:14px;padding:17px 20px;font:600 17px Inter,sans-serif;
+    color:#fff;background:linear-gradient(90deg,var(--accent2),var(--accent));cursor:pointer;
+    box-shadow:0 8px 24px #5b3fd655;transition:transform .1s}
+  .btn:active{transform:scale(.98)}
+  .btn[disabled]{opacity:.45;box-shadow:none;cursor:default}
+  .note{text-align:center;font-size:13px;color:var(--soft);margin-top:12px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+  .opt{background:var(--card);border:1.5px solid var(--line);border-radius:14px;color:var(--text);
+    font:inherit;cursor:pointer;text-align:center;padding:14px 6px;transition:border-color .15s,background .15s}
+  .opt:hover{border-color:#4a3fa0}
+  .opt.sel{border-color:var(--accent);background:#2a2166}
+  .opt .g{font-size:24px;display:block;margin-bottom:4px;color:var(--gold)}
+  .opt .n{font-weight:600;font-size:14px;display:block}
+  .opt .d{font-size:11px;color:var(--soft);display:block;margin-top:3px}
+  .list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+  .list .opt{text-align:left;padding:18px;font-size:17px;font-weight:500;display:flex;align-items:center;gap:14px}
+  .list .opt .g{margin:0;font-size:22px}
+  .teaser{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:6px}
+  .teaser p{color:var(--text)}
+  .teaser .after{color:var(--muted);font-size:15px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  ul.get{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:14px}
+  ul.get li{display:flex;gap:12px;font-size:16px;line-height:1.5;color:var(--text)}
+  ul.get li b{color:var(--gold);font-weight:400;flex:none}
+  .plan{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:18px;display:flex;
+    align-items:center;gap:14px;cursor:pointer;margin-top:12px;position:relative;width:100%;font:inherit;color:var(--text);text-align:left}
+  .plan.sel{border-color:var(--accent);background:#2a2166}
+  .radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--soft);flex:none;position:relative}
+  .plan.sel .radio{border-color:var(--accent)}
+  .plan.sel .radio::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--accent)}
+  .plan .t{flex:1}
+  .plan .t b{display:block;font-size:17px}
+  .plan .t span{font-size:14px;color:var(--muted)}
+  .plan .p{font-weight:600;font-size:17px}
+  .badge{position:absolute;top:-10px;right:14px;background:var(--gold);color:#1a1433;font-size:11px;font-weight:600;
+    padding:3px 9px;border-radius:20px;letter-spacing:.3px}
+  .fine{font-size:12px;line-height:1.55;color:var(--soft);text-align:center;margin-top:14px}
+  .fine a{color:var(--muted)}
+  footer{text-align:center;font-size:12px;color:var(--soft);margin-top:28px}
+  footer a{color:var(--soft)}
+  @media (max-width:360px){h1{font-size:38px}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <button class="back" id="back" type="button">← Back</button>
+    <div class="brand">Somni ✦</div>
+    <div style="width:52px"></div>
+  </header>
+  <div class="bar"><i id="bar"></i></div>
+
+  <!-- 1 Hook -->
+  <section class="step active" data-step="hook">
+    <div class="orb" aria-hidden="true"></div>
+    <div class="kicker">Your year ahead</div>
+    <h1>Your 2027, read in the stars</h1>
+    <p>2027 opens a new chapter in the sky. Jupiter moves through Leo and then Virgo, Saturn settles into Aries, and a total solar eclipse on 2 August is one of the longest of the century.</p>
+    <p>See what it means for you.</p>
+    <div class="spacer"></div>
+    <button class="btn" type="button" data-next>See my 2027</button>
+    <div class="note">Takes 30 seconds</div>
+  </section>
+
+  <!-- 2 Sign -->
+  <section class="step" data-step="sign">
+    <h2>What's your sun sign?</h2>
+    <p>Not sure? It's the sign for your birthday. The dates are under each sign.</p>
+    <div class="grid" id="signs"></div>
+    <div class="spacer"></div>
+  </section>
+
+  <!-- 3 Focus -->
+  <section class="step" data-step="focus">
+    <h2>What do you most want to know about 2027?</h2>
+    <div class="list" id="focus"></div>
+    <div class="spacer"></div>
+  </section>
+
+  <!-- 4 Teaser -->
+  <section class="step" data-step="teaser">
+    <div class="kicker" id="tKicker"></div>
+    <h2 id="tTitle"></h2>
+    <div class="teaser">
+      <p id="tBody"></p>
+      <p class="after">That's the big picture. Your full 2027 goes month by month, using your exact birth chart, not just your sun sign.</p>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn" type="button" data-next>Continue</button>
+  </section>
+
+  <!-- 5 What you get -->
+  <section class="step" data-step="get">
+    <h2 id="gTitle"></h2>
+    <ul class="get">
+      <li><b>✦</b><span>Your full 2027 forecast: all 12 months, read through both Western and Vedic astrology, with a PDF to keep</span></li>
+      <li><b>✦</b><span>Your Cosmic Blueprint: your complete birth chart across every system Somni reads</span></li>
+      <li><b>✦</b><span>Compatibility readings for you and the people in your life</span></li>
+      <li><b>✦</b><span>Daily readings and a dream journal that reads your dreams through your chart</span></li>
+    </ul>
+    <div class="spacer"></div>
+    <button class="btn" type="button" data-next>See plans</button>
+  </section>
+
+  <!-- 6 Plans -->
+  <section class="step" data-step="plans">
+    <h2>Unlock Somni Pro</h2>
+    <p>Everything above, in the Somni app on iPhone and Android.</p>
+    <button class="plan sel" type="button" data-pkg="$rc_annual">
+      <span class="badge">Best value</span>
+      <span class="radio"></span>
+      <span class="t"><b>Yearly</b><span>US$2.50/month, billed yearly</span></span>
+      <span class="p">US$29.99</span>
+    </button>
+    <button class="plan" type="button" data-pkg="$rc_monthly">
+      <span class="radio"></span>
+      <span class="t"><b>Monthly</b><span>Billed monthly</span></span>
+      <span class="p">US$7.99</span>
+    </button>
+    <div class="spacer"></div>
+    <button class="btn" type="button" id="checkout">Continue</button>
+    <p class="fine">Renews automatically at the same price until you cancel. Cancel anytime from the link in your receipt email. By continuing you agree to the <a href="https://mysomni.app/terms-of-service/" target="_blank" rel="noopener">Terms</a> and <a href="https://mysomni.app/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+  </section>
+
+  <footer>Somni · <a href="mailto:info@mysomni.app">info@mysomni.app</a></footer>
+</div>
+
+<script>
+  // RevenueCat Web Purchase Link for offering web_2027 (no app user id: Redemption Links handle it).
+  var PURCHASE_URL = "https://pay.rev.cat/cbcolezmcvnsygqn";
+
+  var SIGNS = [
+    ["aries","♈\uFE0E","Aries","Mar 21 – Apr 19","The year you rebuild yourself","Saturn spends all of 2027 in your sign. It asks you to get serious about who you're becoming, and it rewards steady effort over quick wins. Until late July, Jupiter lights up romance, creativity and fun. From then on, the focus turns to health, routines and doing your work better."],
+    ["taurus","♉\uFE0E","Taurus","Apr 20 – May 20","Roots first, then romance","Until late July, Jupiter favours home and family: a move, a renovation or simply feeling settled. From late July it shifts toward love, creativity and pleasure. Uranus keeps money unpredictable, so a flexible budget beats a fixed plan."],
+    ["gemini","♊\uFE0E","Gemini","May 21 – Jun 20","Reinvention, out loud","Uranus in your sign keeps 2027 restless. Expect new looks, new ideas and a new direction. Until late July, Jupiter boosts writing, learning and conversations that open doors. Saturn rewards the friendships and long-term goals you actually commit to."],
+    ["cancer","♋\uFE0E","Cancer","Jun 21 – Jul 22","Worth and ambition","Until late July, Jupiter supports your income and your sense of what you're worth. Then it moves on to learning and local connections. Saturn puts your career under a spotlight all year: more responsibility, and more credit when you deliver."],
+    ["leo","♌\uFE0E","Leo","Jul 23 – Aug 22","Your year in the spotlight","Jupiter is in your sign until late July, the high point of a 12-year cycle. The 2 August total solar eclipse falls in Leo too, a powerful personal reset. After July, Jupiter turns to money and stability. Saturn invites study, travel and a bigger view of life."],
+    ["virgo","♍\uFE0E","Virgo","Aug 23 – Sep 22","A slow start, then a lucky turn","The first half of 2027 is quieter and suits rest, reflection and finishing old business. In late July, Jupiter enters Virgo and begins your luckiest stretch in 12 years. Saturn deepens shared finances and close bonds."],
+    ["libra","♎\uFE0E","Libra","Sep 23 – Oct 22","Relationships get real","Saturn spends 2027 in your partnership zone. Commitments are tested and strengthened, and casual ties may fall away. Until late July, Jupiter brings friends, community and wishes coming true. After that it favours rest and inner work."],
+    ["scorpio","♏\uFE0E","Scorpio","Oct 23 – Nov 21","Career peak","Until late July, Jupiter crowns your career zone, so recognition, promotions and public wins are possible. After that it shifts to friends, networks and future plans. Saturn asks for better daily habits: health, routines and how you spend your hours."],
+    ["sagittarius","♐\uFE0E","Sagittarius","Nov 22 – Dec 21","Horizons open","Until late July, Jupiter favours travel, study and big ideas. Then it moves to the top of your chart, putting career growth in focus for the second half. Saturn asks you to take love and creative projects seriously. Uranus brings surprises in close relationships."],
+    ["capricorn","♑\uFE0E","Capricorn","Dec 22 – Jan 19","Deep foundations","Until late July, Jupiter supports shared money, investments and deeper bonds. Then it opens up travel and learning. Saturn spends the year in your home zone: family matters, property and building a base that lasts."],
+    ["aquarius","♒\uFE0E","Aquarius","Jan 20 – Feb 18","Partnerships and a reset","Until late July, Jupiter favours partnerships: love, collaborations and contracts. Eclipses in your sign mark a personal reset across the year. Uranus brings unexpected romance and creative sparks. Saturn rewards learning and clear communication."],
+    ["pisces","♓\uFE0E","Pisces","Feb 19 – Mar 20","Daily life upgrades, then love","Until late July, Jupiter improves work, health and routines. Then it moves into your relationship zone for the rest of the year. Saturn asks for money discipline and building real security. Uranus stirs changes at home."]
+  ];
+  var FOCUS = [
+    ["love","♡","Love and relationships","Your 2027 in love, month by month"],
+    ["career","◈","Career and money","Your 2027 for career and money, month by month"],
+    ["purpose","✧","Purpose and personal growth","Your 2027 path, month by month"]
+  ];
+
+  var order = ["hook","sign","focus","teaser","get","plans"];
+  var idx = 0, state = {sign:null, focus:null, pkg:"$rc_annual"};
+  var steps = {}; document.querySelectorAll(".step").forEach(function(s){steps[s.dataset.step]=s;});
+
+  // Analytics hook: wire Meta Pixel / PostHog here later. No personal data is collected on this page.
+  function track(name, props){ try{ if(window.somniTrack) window.somniTrack(name, props||{}); }catch(e){} }
+
+  function show(i){
+    idx = i;
+    order.forEach(function(k,j){ steps[k].classList.toggle("active", j===i); });
+    document.getElementById("bar").style.width = Math.round((i/(order.length-1))*100)+"%";
+    document.getElementById("back").classList.toggle("show", i>0);
+    window.scrollTo(0,0);
+    track("funnel_step_viewed",{step:order[i]});
+  }
+  function next(){ if(idx<order.length-1) show(idx+1); }
+  document.querySelectorAll("[data-next]").forEach(function(b){ b.addEventListener("click", next); });
+  document.getElementById("back").addEventListener("click", function(){ if(idx>0) show(idx-1); });
+
+  var sg = document.getElementById("signs");
+  SIGNS.forEach(function(s){
+    var b = document.createElement("button"); b.type="button"; b.className="opt";
+    b.innerHTML = '<span class="g">'+s[1]+'</span><span class="n">'+s[2]+'</span><span class="d">'+s[3]+'</span>';
+    b.addEventListener("click", function(){
+      sg.querySelectorAll(".opt").forEach(function(o){o.classList.remove("sel");}); b.classList.add("sel");
+      state.sign = s;
+      document.getElementById("tKicker").textContent = s[1]+"  "+s[2]+" in 2027";
+      document.getElementById("tTitle").textContent = s[4];
+      document.getElementById("tBody").textContent = s[5];
+      track("funnel_sign_selected",{sign:s[0]});
+      setTimeout(next, 180);
+    });
+    sg.appendChild(b);
+  });
+
+  var fc = document.getElementById("focus");
+  FOCUS.forEach(function(f){
+    var b = document.createElement("button"); b.type="button"; b.className="opt";
+    b.innerHTML = '<span class="g">'+f[1]+'</span><span>'+f[2]+'</span>';
+    b.addEventListener("click", function(){
+      fc.querySelectorAll(".opt").forEach(function(o){o.classList.remove("sel");}); b.classList.add("sel");
+      state.focus = f; document.getElementById("gTitle").textContent = f[3];
+      track("funnel_focus_selected",{focus:f[0]});
+      setTimeout(next, 180);
+    });
+    fc.appendChild(b);
+  });
+
+  document.querySelectorAll(".plan").forEach(function(p){
+    p.addEventListener("click", function(){
+      document.querySelectorAll(".plan").forEach(function(o){o.classList.remove("sel");});
+      p.classList.add("sel"); state.pkg = p.dataset.pkg;
+    });
+  });
+
+  document.getElementById("checkout").addEventListener("click", function(){
+    var q = new URLSearchParams();
+    q.set("package_id", state.pkg);
+    q.set("hide_back_button", "true");
+    if(state.sign) q.set("metadata[sign]", state.sign[0]);
+    if(state.focus) q.set("metadata[focus]", state.focus[0]);
+    var src = new URLSearchParams(location.search);
+    ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){ if(src.get(k)) q.set("metadata["+k+"]", src.get(k)); });
+    track("funnel_checkout_started",{package:state.pkg});
+    location.href = PURCHASE_URL + "?" + q.toString();
+  });
+
+  show(0);
+</script>
+</body>
+</html>
