@@ -10,9 +10,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2472870089540254');
+fbq('track','PageView');
+// Map funnel events to Meta standard events. Ignore everything else.
+window.somniTrack = function(name, props){
+  props = props || {};
+  if(name === 'funnel_sign_selected'){
+    fbq('track','ViewContent',{content_name:'2027_teaser', content_category: props.sign});
+  } else if(name === 'funnel_checkout_started'){
+    var yearly = props.package === '$rc_annual';
+    fbq('track','InitiateCheckout',{content_name: yearly ? 'web_yearly' : 'web_monthly', value: yearly ? 29.99 : 7.99, currency:'USD'});
+  }
+};
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=2472870089540254&ev=PageView&noscript=1"></noscript>
+<!-- End Meta Pixel -->
 <style>
   :root{
-    --sky:#2a0f6b;        /* eclipse-hour indigo */
+    --sky:#2a0f6b;       /* eclipse-hour indigo */
     --sky-deep:#140638;
     --sun:#ffc93c;        /* solar gold */
     --flare:#ff4f6d;      /* corona pink-red */
@@ -351,6 +369,8 @@
     });
   });
 
+  var checkingOut = false;
+  window.addEventListener("pageshow", function(){ checkingOut = false; });
   document.getElementById("checkout").addEventListener("click", function(){
     var q = new URLSearchParams();
     q.set("package_id", state.pkg);
@@ -359,8 +379,13 @@
     if(state.focus) q.set("metadata[focus]", state.focus[0]);
     var src = new URLSearchParams(location.search);
     ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){ if(src.get(k)) q.set("metadata["+k+"]", src.get(k)); });
+    if(checkingOut) return;
+    checkingOut = true;
     track("funnel_checkout_started",{package:state.pkg});
-    location.href = PURCHASE_URL + "?" + q.toString();
+    var dest = PURCHASE_URL + "?" + q.toString();
+    // Give the pixel ~300 ms to send InitiateCheckout before navigating away.
+    if(window.fbq){ setTimeout(function(){ location.href = dest; }, 300); }
+    else { location.href = dest; }
   });
 
   show(0);
